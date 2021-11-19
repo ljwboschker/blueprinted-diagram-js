@@ -1,1 +1,1 @@
-declare module 'angular-diagram-js';
+declare module 'blueprinted-diagram-js';

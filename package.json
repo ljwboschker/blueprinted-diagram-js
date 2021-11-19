@@ -1,17 +1,19 @@
 {
-  "name": "flexi-diagram-js",
-  "version": "1.0.0",
-  "description": "A typescript-ready, configurable wrapper around diagram-js",
+  "name": "blueprinted-diagram-js",
+  "version": "0.0.1",
+  "description": "A typescript observable wrapper around diagram-js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "diagram-js",
-    "typescript"
+    "rxjs",
+    "typescript",
+    "diagrams"
   ],
-  "author": "LJW Boschker",
-  "license": "ISC",
+  "author": "Wirebird",
+  "license": "MIT",
   "dependencies": {
     "diagram-js": "^7.7.0",
     "diagram-js-direct-editing": "^1.6.3"
