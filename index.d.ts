@@ -12,4 +12,23 @@ export interface EditorOptions {
    * The DOM element where the diagram is rendered.
    */
   container: Element;
+
+  /**
+   * The blueprint for this diagram.
+   */
+  blueprint: Blueprint;
+}
+
+export interface Blueprint {
+  elements: BlueprintElement[];
+}
+
+export interface BlueprintElement {
+  type: string;
+  title: string;
+  iconClassName: string;
+  svg: any;
+  width: number;
+  height: number;
+  resizable: boolean
 }
