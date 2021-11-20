@@ -5,9 +5,10 @@ declare module 'blueprinted-diagram-js';
  * 
  * @param options editor options
  */
-declare function createEditor(options: EditorOptions): void;
+declare function createEditor<T>(options: EditorOptions<T>): void;
 
-export interface EditorOptions {
+type ElementEvent<T> = (element: T) => void;
+export interface EditorOptions<T> {
   /**
    * The DOM element where the diagram is rendered.
    */
@@ -17,6 +18,16 @@ export interface EditorOptions {
    * The blueprint for this diagram.
    */
   blueprint: Blueprint;
+
+  /**
+   * Emits when an element has been created or changed.
+   */
+  elementChanged?: ElementEvent<T>;
+
+  /**
+   * Emits the ID of an element that was removed.
+   */
+  elementRemoved?: ElementEvent<string>;
 }
 
 export interface Blueprint {
