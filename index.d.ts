@@ -20,15 +20,63 @@ export interface EditorOptions {
 }
 
 export interface Blueprint {
+  /**
+   * Array with drawable elements.
+   */
   elements: BlueprintElement[];
 }
 
 export interface BlueprintElement {
+  /**
+   * Arbitrary type indication for your element. 
+   */
   type: string;
+  
+  /**
+   * The title that is displayed as tooltip in the diagram palette.
+   */ 
   title: string;
+
+  /**
+   * The css class is applied to this element in the diagram palette.
+   * Use the css 'background' property to render an icon. 
+   */
   iconClassName: string;
-  svg: any;
+  
+  /**
+   * When this element is created in the diagram, it will create a main SVG element that contains this shape.
+   */
+  shape: BlueprintShape;
+}
+
+export interface BlueprintShape {
+  /**
+   * Passed to the main SVG element that will contain your shape.
+   */
+  viewBox: string;
+
+  /**
+   * Passed to the main SVG element that will contain your shape.
+   */
+  preserveAspectRatio?: string;
+
+  /**
+   * The width of your shape.
+   */
   width: number;
+
+  /**
+   * The height of your shape.
+   */
   height: number;
-  resizable: boolean
+
+  /**
+   * The inner SVG that is rendered inside the main SVG element. 
+   */
+  svg: string;
+
+  /**
+   * Indicate if your shape is resizable.
+   */
+  resizable?: boolean;
 }
