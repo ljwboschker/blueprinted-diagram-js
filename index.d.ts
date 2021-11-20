@@ -36,12 +36,6 @@ export interface BlueprintElement {
    * The title that is displayed as tooltip in the diagram palette.
    */ 
   title: string;
-
-  /**
-   * The css class is applied to this element in the diagram palette.
-   * Use the css 'background' property to render an icon. 
-   */
-  iconClassName: string;
   
   /**
    * When this element is created in the diagram, it will create a main SVG element that contains this shape.
