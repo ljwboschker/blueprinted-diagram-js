@@ -55,15 +55,6 @@ export interface BlueprintElement {
 }
 
 export interface BlueprintShape {
-  /**
-   * Passed to the main SVG element that will contain your shape.
-   */
-  viewBox: string;
-
-  /**
-   * Passed to the main SVG element that will contain your shape.
-   */
-  preserveAspectRatio?: string;
 
   /**
    * The width of your shape.
@@ -76,12 +67,35 @@ export interface BlueprintShape {
   height: number;
 
   /**
-   * The inner SVG that is rendered inside the main SVG element. 
+   * A function that returns the shape as SVG image. 
+   * Note that the SVG is rendered inside a viewbox that starts with 0 0 and has the width and height as specified for this shape. 
    */
-  svg: string;
+  svg: {(): string};
 
   /**
-   * Indicate if your shape is resizable.
+   * The labels to place in (or by) the shapes.
    */
-  resizable?: boolean;
+  labelDefinitions?: BlueprintShapeLabel[]; 
+}
+
+export interface BlueprintShapeLabel {
+  /**
+   * The y-offset of the label (in pixels) from the element's top.
+   * Note: labels are always centered with the element.
+   */
+  y: number,
+
+  text: string,
+
+  style: {
+    /**
+     * Fontsize (in pixels)
+     */
+    fontSize: number,
+
+    /**
+     * Text color
+     */
+    fill: string
+  }
 }
