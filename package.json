@@ -15,6 +15,7 @@
   "author": "Wirebird",
   "license": "MIT",
   "dependencies": {
+    "bpmn-font": "^0.10.0",
     "diagram-js": "^7.7.0",
     "diagram-js-direct-editing": "^1.6.3"
   }
