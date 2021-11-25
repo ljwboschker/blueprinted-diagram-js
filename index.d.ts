@@ -52,6 +52,39 @@ export interface BlueprintElement {
    * When this element is created in the diagram, it will create a main SVG element that contains this shape.
    */
   shape: BlueprintShape;
+
+  /**
+   * Modeling rules for this element.
+   */
+  rules: BlueprintRules;
+}
+
+export interface BlueprintRules {
+  /**
+   * Specify that this element can only connect to the specified types.
+   * If not specified, then this element cannot connect to anything.
+   */
+  connect?: BlueprintRulesConnection[];
+}
+
+export interface BlueprintRulesConnection {
+  /**
+   * The type of an allowed target element.
+   */
+  to: string,
+
+  /**
+   * The default text for the connection's label.
+   */
+  text: string,
+
+  /// TODO: label style definition
+  style?: {
+  },
+
+  /// TODO: label box definition
+  box?: {
+  }
 }
 
 export interface BlueprintShape {
@@ -75,7 +108,7 @@ export interface BlueprintShape {
   /**
    * The labels to place in (or by) the shapes.
    */
-  labelDefinitions?: BlueprintShapeLabel[]; 
+  labelDefinitions?: BlueprintShapeLabel[];
 }
 
 export interface BlueprintShapeLabel {
