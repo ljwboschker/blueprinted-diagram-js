@@ -78,6 +78,17 @@ export interface BlueprintConnection {
    */
   text: string,
 
+  /**
+   * Show the direction of the connection by rendering an arrow.
+   * Note: the arrow head will take the color of the connection's stroke style.
+   */
+  direction?: boolean;
+
+  /**
+   * The connection style as a CSS rule.
+   */
+  style?: string;
+
   textOptions: {
     style?: BlueprintTextStyle,
     box: {
