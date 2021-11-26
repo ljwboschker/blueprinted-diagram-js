@@ -39,7 +39,7 @@ export interface Blueprint {
 
 export interface BlueprintElement {
   /**
-   * Arbitrary type indication for your element. 
+   * Type indication for your element. 
    */
   type: string;
   
@@ -64,27 +64,29 @@ export interface BlueprintRules {
    * Specify that this element can only connect to the specified types.
    * If not specified, then this element cannot connect to anything.
    */
-  connect?: BlueprintRulesConnection[];
+  connect?: BlueprintConnection[];
 }
 
-export interface BlueprintRulesConnection {
+export interface BlueprintConnection {
   /**
-   * The type of an allowed target element.
+   * The type of the target element.
    */
   to: string,
 
   /**
-   * The default text for the connection's label.
+   * The default text for the connection label.
    */
   text: string,
 
-  /// TODO: label style definition
-  style?: {
+  textOptions: {
+    style?: BlueprintTextStyle,
+    box: {
+      /**
+       * The width of the label text editor (in pixels).
+       */
+      width: number
+    }
   },
-
-  /// TODO: label box definition
-  box?: {
-  }
 }
 
 export interface BlueprintShape {
@@ -101,7 +103,6 @@ export interface BlueprintShape {
 
   /**
    * A function that returns the shape as SVG image. 
-   * Note that the SVG is rendered inside a viewbox that starts with 0 0 and has the width and height as specified for this shape. 
    */
   svg: {(): string};
 
@@ -120,15 +121,17 @@ export interface BlueprintShapeLabel {
 
   text: string,
 
-  style: {
-    /**
-     * Fontsize (in pixels)
-     */
-    fontSize: number,
+  style: BlueprintTextStyle;
+}
 
-    /**
-     * Text color
-     */
-    fill: string
-  }
+export interface BlueprintTextStyle {
+  /**
+   * Fontsize in pixels
+   */
+  fontSize?: number,
+  
+  /**
+   * Text color
+   */
+  fill?: string  
 }
