@@ -20,6 +20,11 @@ export interface EditorOptions<T> {
   blueprint: Blueprint;
 
   /**
+   * The elements to load in the diagram. Only add those emitted by elementChanged.
+   */
+  elements: T[];
+
+  /**
    * Emits when an element has been created or changed.
    */
   elementChanged?: ElementEvent<T>;
