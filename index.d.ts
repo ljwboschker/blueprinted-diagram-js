@@ -10,6 +10,7 @@ declare module 'blueprinted-diagram-js';
 declare function createDiagramEditor<T>(container: Element, blueprint: Blueprint): DiagramEditor<T>;
 
 export interface Blueprint {
+  name: string;
   /**
    * Array with drawable elements.
    */
@@ -76,7 +77,7 @@ export interface BlueprintConnection {
        */
       width: number
     }
-  },
+  }
 }
 
 export interface BlueprintShape {
@@ -144,20 +145,29 @@ export interface DiagramEditor<T> extends EventTarget {
    * 
    * @param element the element that was created or changed.
    */
-   onElementChanged(element: DiagramEvent<T>): void;
+   onElementChange(element: DiagramEvent<T>): void;
 
    /**
     * Called when an element is removed.
+    * 
     * @param id the id of the element that was removed.
     */
-   onElementRemoved(id: DiagramEvent<string>): void;
+   onElementRemove(id: DiagramEvent<string>): void;
 
+   /**
+    * Called when an element was double-clicked.
+    * 
+    * @param element the element that was doubleclicked.
+    */
+   onElementDoubleClick(element: DiagramEvent<T>): void;
+   
    /**
     * Called when the canvas was moved.
     * 
     * @param move information about the movement of the diagram
     */
-   onCanvasMoved(move: DiagramEvent<CanvasMove>): void;
+   onCanvasMove(move: DiagramEvent<CanvasMove>): void;
+
 }
 
 export interface CanvasMove {
