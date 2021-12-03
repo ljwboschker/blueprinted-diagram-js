@@ -3,37 +3,11 @@ declare module 'blueprinted-diagram-js';
 /**
  * Create a new instance of a diagram editor.
  * 
- * @param options editor options
+ * @param container the DOM element to put the diagam in
+ * @param blueprint the blueprint definition for this diagram
+ * @returns the diagram editor
  */
-declare function createEditor<T>(options: EditorOptions<T>): void;
-
-type ElementEvent<T> = (element: T) => void;
-export interface EditorOptions<T> {
-  /**
-   * The DOM element where the diagram is rendered.
-   */
-  container: Element;
-
-  /**
-   * The blueprint for this diagram.
-   */
-  blueprint: Blueprint;
-
-  /**
-   * The elements to load in the diagram. Only add those emitted by elementChanged.
-   */
-  elements: T[];
-
-  /**
-   * Emits when an element has been created or changed.
-   */
-  elementChanged?: ElementEvent<T>;
-
-  /**
-   * Emits the ID of an element that was removed.
-   */
-  elementRemoved?: ElementEvent<string>;
-}
+declare function createDiagramEditor<T>(container: Element, blueprint: Blueprint): DiagramEditor<T>;
 
 export interface Blueprint {
   /**
@@ -150,4 +124,53 @@ export interface BlueprintTextStyle {
    * Text color
    */
   fill?: string  
+}
+
+type DiagramEvent<T> = (element: T) => void;
+export interface DiagramEditor<T> extends EventTarget {
+
+  /**
+   * 
+   */
+  setViewbox(viewbox: Viewbox): void;
+
+  /**
+   * Load elements in the diagram. Only add those emitted by elementChanged.
+   */
+   load(elements: T[]): void;
+
+  /**
+   * Called when an element is created or changes.
+   * 
+   * @param element the element that was created or changed.
+   */
+   onElementChanged(element: DiagramEvent<T>): void;
+
+   /**
+    * Called when an element is removed.
+    * @param id the id of the element that was removed.
+    */
+   onElementRemoved(id: DiagramEvent<string>): void;
+
+   /**
+    * Called when the canvas was moved.
+    * 
+    * @param move information about the movement of the diagram
+    */
+   onCanvasMoved(move: DiagramEvent<CanvasMove>): void;
+}
+
+export interface CanvasMove {
+  delta: Point,
+  newViewbox: Viewbox
+}
+
+export interface Point {
+  x: number,
+  y: number
+}
+
+export interface Viewbox extends Point {
+  width: number;
+  height: number;
 }
