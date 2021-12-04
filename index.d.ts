@@ -39,6 +39,46 @@ export interface BlueprintElement {
   rules: BlueprintRules;
 }
 
+export interface BlueprintShape {
+
+  /**
+   * The width of your shape.
+   */
+  width: number;
+
+  /**
+   * The height of your shape.
+   */
+  height: number;
+
+  /**
+   * A function that returns the shape as SVG image. 
+   */
+  svg: {(): string};
+
+  /**
+   * The labels to place in (or by) the shapes.
+   */
+  labels?: BlueprintShapeLabel[];
+}
+
+export interface BlueprintShapeLabel {
+  /**
+   * The name of this label. Your client can use this to easily locate the label's text.
+   */
+  name: string;
+
+  /**
+   * The y-offset of the label (in pixels) from the element's top.
+   * Note: labels are always centered with the element.
+   */
+  y: number,
+
+  text: string,
+
+  style: BlueprintTextStyle;
+}
+
 export interface BlueprintRules {
   /**
    * Specify that this element can only connect to the specified types.
@@ -78,41 +118,6 @@ export interface BlueprintConnection {
       width: number
     }
   }
-}
-
-export interface BlueprintShape {
-
-  /**
-   * The width of your shape.
-   */
-  width: number;
-
-  /**
-   * The height of your shape.
-   */
-  height: number;
-
-  /**
-   * A function that returns the shape as SVG image. 
-   */
-  svg: {(): string};
-
-  /**
-   * The labels to place in (or by) the shapes.
-   */
-  labelDefinitions?: BlueprintShapeLabel[];
-}
-
-export interface BlueprintShapeLabel {
-  /**
-   * The y-offset of the label (in pixels) from the element's top.
-   * Note: labels are always centered with the element.
-   */
-  y: number,
-
-  text: string,
-
-  style: BlueprintTextStyle;
 }
 
 export interface BlueprintTextStyle {
