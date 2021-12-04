@@ -140,9 +140,8 @@ export interface BlueprintTextStyle {
 }
 
 export interface DiagramEditor<T> extends EventTarget {
-
   /**
-   * 
+   * Set the diagram's viewbox
    */
   setViewbox(viewbox: Viewbox): void;
 
@@ -166,6 +165,13 @@ export interface DiagramEditor<T> extends EventTarget {
   onElementRemove(id: Callback<string>): void;
 
   /**
+   * Called when an element is selected.
+   * 
+   * @param element the element that was doubleclicked.
+   */
+   onElementSelect(element: Callback<DiagramElement<T>>): void;
+
+   /**
    * Called when an element was double-clicked.
    * 
    * @param element the element that was doubleclicked.
