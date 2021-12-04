@@ -22,12 +22,12 @@ export interface BlueprintElement {
    * Type indication for your element. 
    */
   type: string;
-  
+
   /**
    * The title that is displayed as tooltip in the diagram palette.
-   */ 
+   */
   title: string;
-  
+
   /**
    * When this element is created in the diagram, it will create a main SVG element that contains this shape.
    */
@@ -54,7 +54,7 @@ export interface BlueprintShape {
   /**
    * A function that returns the shape as SVG image. 
    */
-  svg: {(): string};
+  svg: { (): string };
 
   /**
    * The labels to place in (or by) the shapes.
@@ -64,9 +64,9 @@ export interface BlueprintShape {
 
 export interface BlueprintShapeLabel {
   /**
-   * The name of this label. Your client can use this to easily locate the label's text.
+  * The content of this label is stored in the data property of the element, under this key.
    */
-  name: string;
+  dataKey?: string;
 
   /**
    * The y-offset of the label (in pixels) from the element's top.
@@ -94,11 +94,6 @@ export interface BlueprintConnection {
   to: string,
 
   /**
-   * The default text for the connection label.
-   */
-  text: string,
-
-  /**
    * Show the direction of the connection by rendering an arrow.
    * Note: the arrow head will take the color of the connection's stroke style.
    */
@@ -109,13 +104,25 @@ export interface BlueprintConnection {
    */
   style?: string;
 
-  textOptions: {
-    style?: BlueprintTextStyle,
-    box: {
-      /**
-       * The width of the label text editor (in pixels).
-       */
-      width: number
+  label: {
+    /**
+     * The content of this label is stored in the data property of the connection, under this key.
+     */
+    dataKey?: string,
+
+    /**
+     * The default text for this label.
+     */
+    text: string,
+
+    textOptions: {
+      style?: BlueprintTextStyle,
+      box: {
+        /**
+         * The width of the label text editor (in pixels).
+         */
+        width: number
+      }
     }
   }
 }
@@ -125,14 +132,13 @@ export interface BlueprintTextStyle {
    * Fontsize in pixels
    */
   fontSize?: number,
-  
+
   /**
    * Text color
    */
-  fill?: string  
+  fill?: string
 }
 
-type DiagramEvent<T> = (element: T) => void;
 export interface DiagramEditor<T> extends EventTarget {
 
   /**
@@ -143,36 +149,44 @@ export interface DiagramEditor<T> extends EventTarget {
   /**
    * Load elements in the diagram. Only add those emitted by elementChanged.
    */
-   load(elements: T[]): void;
+  load(elements: DiagramElement<T>[]): void;
 
   /**
    * Called when an element is created or changes.
    * 
    * @param element the element that was created or changed.
    */
-   onElementChange(element: DiagramEvent<T>): void;
+  onElementChange(element: Callback<DiagramElement<T>>): void;
 
-   /**
-    * Called when an element is removed.
-    * 
-    * @param id the id of the element that was removed.
-    */
-   onElementRemove(id: DiagramEvent<string>): void;
+  /**
+   * Called when an element is removed.
+   * 
+   * @param id the id of the element that was removed.
+   */
+  onElementRemove(id: Callback<string>): void;
 
-   /**
-    * Called when an element was double-clicked.
-    * 
-    * @param element the element that was doubleclicked.
-    */
-   onElementDoubleClick(element: DiagramEvent<T>): void;
-   
-   /**
-    * Called when the canvas was moved.
-    * 
-    * @param move information about the movement of the diagram
-    */
-   onCanvasMove(move: DiagramEvent<CanvasMove>): void;
+  /**
+   * Called when an element was double-clicked.
+   * 
+   * @param element the element that was doubleclicked.
+   */
+  onElementDoubleClick(element: Callback<DiagramElement<T>>): void;
 
+  /**
+   * Called when the canvas was moved.
+   * 
+   * @param move information about the movement of the diagram
+   */
+  onCanvasMove(move: Callback<CanvasMove>): void;
+
+}
+
+type Callback<T> = (element: T) => void;
+
+export interface DiagramElement<T> {
+  id: string;
+  type: string;
+  data: T;
 }
 
 export interface CanvasMove {
