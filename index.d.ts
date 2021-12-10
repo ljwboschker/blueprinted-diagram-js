@@ -64,9 +64,9 @@ export interface BlueprintShape {
 
 export interface BlueprintShapeLabel {
   /**
-  * The content of this label is stored in the data property of the element, under this key.
+   * The key value attached to this label.
    */
-  dataKey?: string;
+  key?: string;
 
   /**
    * The y-offset of the label (in pixels) from the element's top.
@@ -106,9 +106,9 @@ export interface BlueprintConnection {
 
   label: {
     /**
-     * The content of this label is stored in the data property of the connection, under this key.
+     * The key value attached to this label, so you can find it's content when processing create or update events.
      */
-    dataKey?: string,
+    key?: string,
 
     /**
      * The default text for this label.
@@ -139,44 +139,44 @@ export interface BlueprintTextStyle {
   fill?: string
 }
 
-export interface DiagramEditor<T> extends EventTarget {
+export interface DiagramEditor<T> {
   /**
    * Set the diagram's viewbox
    */
   setViewbox(viewbox: Viewbox): void;
 
   /**
-   * Load elements in the diagram. Only add those emitted by elementChanged.
+   * Load items in the diagram. Only add those emitted by onItemChange.
    */
-  load(elements: DiagramElement<T>[]): void;
+  load(items: DiagramItem<T>[]): void;
 
   /**
-   * Called when an element is created or changes.
+   * Called when a diagram item is created or changes.
    * 
-   * @param element the element that was created or changed.
+   * @param item the item that was created or changed.
    */
-  onElementChange(element: Callback<DiagramElement<T>>): void;
+  onItemChange(item: Callback<DiagramItem<T>>): void;
 
   /**
-   * Called when an element is removed.
+   * Called when a diagram item is removed.
    * 
-   * @param id the id of the element that was removed.
+   * @param id the id of the item that was removed.
    */
-  onElementRemove(id: Callback<string>): void;
+  onItemRemove(id: Callback<string>): void;
 
   /**
-   * Called when an element is selected.
+   * Called when an item is selected.
    * 
-   * @param element the element that was doubleclicked.
+   * @param item the item that was doubleclicked.
    */
-   onElementSelect(element: Callback<DiagramElement<T>>): void;
+  onItemSelect(item: Callback<DiagramItem<T>>): void;
 
-   /**
-   * Called when an element was double-clicked.
-   * 
-   * @param element the element that was doubleclicked.
-   */
-  onElementDoubleClick(element: Callback<DiagramElement<T>>): void;
+  /**
+  * Called when a diagram item was double-clicked.
+  * 
+  * @param item the item that was doubleclicked.
+  */
+  onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when the canvas was moved.
@@ -187,12 +187,43 @@ export interface DiagramEditor<T> extends EventTarget {
 
 }
 
-type Callback<T> = (element: T) => void;
+type Callback<T> = (item: T) => void;
 
-export interface DiagramElement<T> {
+export interface DiagramItem<T> {
+  /**
+   * The ID of the diagram element
+   */
   id: string;
+
+  /**
+   * If applicable; the ID of the diagram element that contains this element.
+   */
+  parentId: string;
+
+  /**
+   * The type of element, as defined in the blueprint.
+   */
   type: string;
-  data: T;
+
+  /**
+   * The diagram element itself.
+   */
+  element: Readonly<any>;
+
+  /**
+   * For item type 'connection': the ID of the connection source element.
+   */
+  sourceId?: string;
+
+  /**
+   * For item type 'connection': the ID of the connection target element.
+   */
+  targetId?: string;
+
+  /**
+   * For item type 'label': the ID of the element this label belongs to.
+   */
+  labelTargetId?: string;
 }
 
 export interface CanvasMove {
