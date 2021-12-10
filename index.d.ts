@@ -148,14 +148,14 @@ export interface DiagramEditor<T> {
   /**
    * Load items in the diagram. Only add those emitted by onItemChange.
    */
-  load(items: DiagramItem<T>[]): void;
+  load(items: DiagramItem[]): void;
 
   /**
    * Called when a diagram item is created or changes.
    * 
    * @param item the item that was created or changed.
    */
-  onItemChange(item: Callback<DiagramItem<T>>): void;
+  onItemChange(item: Callback<DiagramItem>): void;
 
   /**
    * Called when a diagram item is removed.
@@ -169,14 +169,14 @@ export interface DiagramEditor<T> {
    * 
    * @param item the item that was doubleclicked.
    */
-  onItemSelect(item: Callback<DiagramItem<T>>): void;
+  onItemSelect(item: Callback<DiagramItem>): void;
 
   /**
   * Called when a diagram item was double-clicked.
   * 
   * @param item the item that was doubleclicked.
   */
-  onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
+  onItemDoubleClick(item: Callback<DiagramItem>): void;
 
   /**
    * Called when the canvas was moved.
@@ -189,26 +189,26 @@ export interface DiagramEditor<T> {
 
 type Callback<T> = (item: T) => void;
 
-export interface DiagramItem<T> {
+export interface DiagramItem {
   /**
    * The ID of the diagram element
    */
   id: string;
 
   /**
-   * If applicable; the ID of the diagram element that contains this element.
-   */
-  parentId: string;
-
-  /**
    * The type of element, as defined in the blueprint.
    */
   type: string;
-
+  
   /**
    * The diagram element itself.
    */
   element: Readonly<any>;
+  
+  /**
+   * If applicable; the ID of the diagram element that contains this element.
+   */
+  parentId?: string;
 
   /**
    * For item type 'connection': the ID of the connection source element.
@@ -224,6 +224,11 @@ export interface DiagramItem<T> {
    * For item type 'label': the ID of the element this label belongs to.
    */
   labelTargetId?: string;
+
+  /**
+   * Find the content of a label's key.
+   */
+  getLabelContent?: (key: string) => string;
 }
 
 export interface CanvasMove {
