@@ -7,17 +7,17 @@ declare module 'blueprinted-diagram-js';
  * @param blueprint the blueprint definition for this diagram
  * @returns the diagram editor
  */
-declare function createDiagramEditor<T>(container: Element, blueprint: Blueprint): DiagramEditor<T>;
+declare function createDiagramEditor<T>(container: Element, blueprint: Blueprint<T>): DiagramEditor<T>;
 
-export interface Blueprint {
+export interface Blueprint<T> {
   name: string;
   /**
    * Array with drawable elements.
    */
-  elements: BlueprintElement[];
+  elements: BlueprintElement<T>[];
 }
 
-export interface BlueprintElement {
+export interface BlueprintElement<T> {
   /**
    * Type indication for your element. 
    */
@@ -27,6 +27,11 @@ export interface BlueprintElement {
    * The title that is displayed as tooltip in the diagram palette.
    */
   title: string;
+
+  /**
+   * Called when an element is created. 
+   */
+  initializeData?: () => T;
 
   /**
    * When this element is created in the diagram, it will create a main SVG element that contains this shape.
@@ -64,17 +69,15 @@ export interface BlueprintShape {
 
 export interface BlueprintShapeLabel {
   /**
-   * The key value attached to this label.
+   * The key of the property in the data object that is used as this label's content.
    */
-  key?: string;
+  key: string;
 
   /**
    * The y-offset of the label (in pixels) from the element's top.
    * Note: labels are always centered with the element.
    */
   y: number,
-
-  text: string,
 
   style: BlueprintTextStyle;
 }
@@ -148,14 +151,14 @@ export interface DiagramEditor<T> {
   /**
    * Load items in the diagram. Only add those emitted by onItemChange.
    */
-  load(items: DiagramItem[]): void;
+  load(items: DiagramItem<T>[]): void;
 
   /**
    * Called when a diagram item is created or changes.
    * 
    * @param item the item that was created or changed.
    */
-  onItemChange(item: Callback<DiagramItem>): void;
+  onItemChange(item: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when a diagram item is removed.
@@ -169,14 +172,14 @@ export interface DiagramEditor<T> {
    * 
    * @param item the item that was doubleclicked.
    */
-  onItemSelect(item: Callback<DiagramItem>): void;
+  onItemSelect(item: Callback<DiagramItem<T>>): void;
 
   /**
   * Called when a diagram item was double-clicked.
   * 
   * @param item the item that was doubleclicked.
   */
-  onItemDoubleClick(item: Callback<DiagramItem>): void;
+  onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when the canvas was moved.
@@ -184,12 +187,11 @@ export interface DiagramEditor<T> {
    * @param move information about the movement of the diagram
    */
   onCanvasMove(move: Callback<CanvasMove>): void;
-
 }
 
 type Callback<T> = (item: T) => void;
 
-export interface DiagramItem {
+export interface DiagramItem<T> {
   /**
    * The ID of the diagram element
    */
@@ -204,6 +206,11 @@ export interface DiagramItem {
    * The diagram element itself.
    */
   element: Readonly<any>;
+
+  /**
+   * Extra data associated with this diagram element.
+   */
+  data?: T;
   
   /**
    * If applicable; the ID of the diagram element that contains this element.
@@ -224,11 +231,6 @@ export interface DiagramItem {
    * For item type 'label': the ID of the element this label belongs to.
    */
   labelTargetId?: string;
-
-  /**
-   * Find the content of a label's key.
-   */
-  getLabelContent?: (key: string) => string;
 }
 
 export interface CanvasMove {
