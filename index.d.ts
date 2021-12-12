@@ -205,12 +205,7 @@ export interface DiagramItem<T> {
   /**
    * The diagram element itself.
    */
-  element: Readonly<any>;
-
-  /**
-   * Extra data associated with this diagram element.
-   */
-  data?: T;
+  element: Readonly<DiagramElement<T>>;
   
   /**
    * If applicable; the ID of the diagram element that contains this element.
@@ -231,6 +226,11 @@ export interface DiagramItem<T> {
    * For item type 'label': the ID of the element this label belongs to.
    */
   labelTargetId?: string;
+}
+
+export interface DiagramElement<T> {
+    [key: string]: any;
+    data?: T;
 }
 
 export interface CanvasMove {
