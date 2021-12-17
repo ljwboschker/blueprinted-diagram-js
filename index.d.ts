@@ -37,7 +37,7 @@ export interface BlueprintElement<D> {
     /**
      * When this element is created in the diagram, it will create a main SVG element that contains this shape.
      */
-    shape: BlueprintShape;
+    shape: BlueprintShape<D>;
 
     /**
      * Modeling rules for this element.
@@ -45,7 +45,7 @@ export interface BlueprintElement<D> {
     rules: BlueprintRules<D>;
 }
 
-export interface BlueprintShape {
+export interface BlueprintShape<D> {
 
     /**
      * The width of your shape.
@@ -58,9 +58,16 @@ export interface BlueprintShape {
     height: number;
 
     /**
-     * A function that returns the shape as SVG image. 
+     * Returns the SVG image definition (as a string).
      */
-    svg: { (): string };
+    svg: { (data: D): string };
+
+    /**
+     * Returns the content of a label.
+     * 
+     * @param key the key of the requested label
+     */
+    label?: { (data: D, key: string): string; }
 
     /**
      * The labels to place in (or by) the shapes.
@@ -70,7 +77,7 @@ export interface BlueprintShape {
 
 export interface BlueprintShapeLabel {
     /**
-     * The key of the property in the data object that is used as this label's content.
+     * The key of this label. This is passed to the label parent's label() function.
      */
     key: string;
 
