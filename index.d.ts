@@ -204,41 +204,35 @@ export interface DiagramEditor<T> {
 
 type Callback<D> = (item: D) => void;
 
-export interface DiagramItem<D> {
-    /**
-     * The ID of the diagram element
-     */
+export type DiagramItem<D> = RootItem | ShapeItem<D> | LabelItem<D> | ConnectionItem<D>;
+
+export interface RootItem {
     id: string;
+    type: 'root';
+}
 
-    /**
-     * The type of element, as defined in the blueprint.
-     */
-    type: string;
+export interface ShapeItem<D> {
+    id: string;
+    type: 'shape';
+    parentId: string;
+    element: DiagramElement<D>;
+}
 
-    /**
-     * The diagram element itself.
-     */
-    element: Readonly<DiagramElement<D>>;
+export interface LabelItem<D> {
+    id: string;
+    type: 'label';
+    parentId: string;
+    element: DiagramElement<D>;
+    labelTargetId: string;
+}
 
-    /**
-     * If applicable; the ID of the diagram element that contains this element.
-     */
-    parentId?: string;
-
-    /**
-     * For item type 'connection': the ID of the connection source element.
-     */
-    sourceId?: string;
-
-    /**
-     * For item type 'connection': the ID of the connection target element.
-     */
-    targetId?: string;
-
-    /**
-     * For item type 'label': the ID of the element this label belongs to.
-     */
-    labelTargetId?: string;
+export interface ConnectionItem<D> {
+    id: string;
+    type: 'connection';
+    parentId: string;
+    element: DiagramElement<D>;
+    sourceId: string;
+    targetId: string;
 }
 
 export interface DiagramElement<D> {
