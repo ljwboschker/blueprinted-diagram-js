@@ -215,7 +215,27 @@ export interface ShapeItem<D> {
     id: string;
     type: 'shape';
     parentId: string;
-    element: DiagramElement<D>;
+    element: ShapeElement<D>;
+    
+    getLabelContent: (key: string) => string | undefined;
+    getLabels: () => LabelElement[];
+    getIncoming: () => ConnectionElement<D>[];
+    getOutgoing: () => ConnectionElement<D>[];
+}
+
+export interface ShapeElement<D> extends DiagramElement<D> {
+    blueprint: string;
+}
+
+export interface LabelElement {
+    key: string;
+    content: string;
+}
+
+export interface ConnectionElement<D> {
+    labels: LabelElement[];
+    source: ShapeElement<D>;
+    target: ShapeElement<D>;
 }
 
 export interface LabelItem<D> {
