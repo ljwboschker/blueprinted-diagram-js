@@ -217,7 +217,6 @@ export interface ShapeItem<D> {
     parentId: string;
     element: ShapeElement<D>;
     
-    getLabelContent: (key: string) => string | undefined;
     getLabels: () => LabelElement[];
     getIncoming: () => ConnectionElement<D>[];
     getOutgoing: () => ConnectionElement<D>[];
