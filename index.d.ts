@@ -178,7 +178,7 @@ export interface DiagramEditor<T> {
      * 
      * @param id the id of the item that was removed.
      */
-    onItemRemove(id: Callback<string>): void;
+    onItemRemove(item: Callback<DiagramItem<T>>): void;
 
     /**
      * Called when an item is selected.
@@ -214,7 +214,7 @@ export interface RootItem {
 export interface ShapeItem<D> {
     id: string;
     type: 'shape';
-    parentId: string;
+    parentId: string | undefined;
     element: ShapeElement<D>;
     
     getLabels: () => LabelElement[];
@@ -240,15 +240,15 @@ export interface ConnectionElement<D> {
 export interface LabelItem<D> {
     id: string;
     type: 'label';
-    parentId: string;
+    parentId: string | undefined;
     element: DiagramElement<D>;
-    labelTargetId: string;
+    labelTargetId: string | undefined;
 }
 
 export interface ConnectionItem<D> {
     id: string;
     type: 'connection';
-    parentId: string;
+    parentId: string | undefined;
     element: DiagramElement<D>;
     sourceId: string;
     targetId: string;
