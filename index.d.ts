@@ -2,8 +2,7 @@ declare module 'blueprinted-diagram-js';
 
 /**
  * Create a new instance of a diagram editor.
- * 
- * @param D generic 
+ *
  * @param container the DOM element to put the diagam in
  * @param blueprint the blueprint definition for this diagram
  * @returns the diagram editor
@@ -20,7 +19,7 @@ export interface Blueprint<D> {
 
 export interface BlueprintElement<D> {
     /**
-     * Type indication for your element. 
+     * Type indication for your element.
      */
     type: string;
 
@@ -64,7 +63,7 @@ export interface BlueprintShape<D> {
 
     /**
      * Returns the content of a label.
-     * 
+     *
      * @param key the key of the requested label
      */
     label?: { (data: D, key: string): string; }
@@ -168,35 +167,35 @@ export interface DiagramEditor<T> {
 
     /**
      * Called when a diagram item is created or changes.
-     * 
+     *
      * @param item the item that was created or changed.
      */
     onItemChange(item: Callback<DiagramItem<T>>): void;
 
     /**
      * Called when a diagram item is removed.
-     * 
+     *
      * @param id the id of the item that was removed.
      */
     onItemRemove(item: Callback<DiagramItem<T>>): void;
 
     /**
      * Called when an item is selected.
-     * 
+     *
      * @param item the item that was doubleclicked.
      */
     onItemSelect(item: Callback<DiagramItem<T>>): void;
 
     /**
     * Called when a diagram item was double-clicked.
-    * 
+    *
     * @param item the item that was doubleclicked.
     */
     onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
 
     /**
      * Called when the canvas was moved.
-     * 
+     *
      * @param move information about the movement of the diagram
      */
     onCanvasMove(move: Callback<CanvasMove>): void;
@@ -216,25 +215,12 @@ export interface ShapeItem<D> {
     type: 'shape';
     parentId: string | undefined;
     element: ShapeElement<D>;
-    
+
     getLabels: () => LabelElement[];
-    getIncoming: () => ConnectionElement<D>[];
-    getOutgoing: () => ConnectionElement<D>[];
 }
 
 export interface ShapeElement<D> extends DiagramElement<D> {
     blueprint: string;
-}
-
-export interface LabelElement {
-    key: string;
-    content: string;
-}
-
-export interface ConnectionElement<D> {
-    labels: LabelElement[];
-    source: ShapeElement<D>;
-    target: ShapeElement<D>;
 }
 
 export interface LabelItem<D> {
@@ -252,10 +238,19 @@ export interface ConnectionItem<D> {
     element: DiagramElement<D>;
     sourceId: string;
     targetId: string;
+
+    getLabels: () => LabelElement[];
+    getSource: () => ShapeElement<D>;
+    getTarget: () => ShapeElement<D>;
 }
 
 export interface DiagramElement<D> {
     data?: D;
+}
+
+export interface LabelElement {
+  key: string;
+  content: string;
 }
 
 export interface CanvasMove {
