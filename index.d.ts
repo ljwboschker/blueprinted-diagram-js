@@ -42,6 +42,11 @@ export interface BlueprintElement<D> {
    * Modeling rules for this element.
    */
   rules: BlueprintRules<D>;
+
+  /**
+   * Extra actions added to this element's context pad.
+   */
+  contextActions?: BlueprintContextAction[];
 }
 
 export interface BlueprintShape<D> {
@@ -154,6 +159,24 @@ export interface BlueprintTextStyle {
   fill?: string
 }
 
+export interface BlueprintContextAction {
+  /**
+   * The name of the action.
+   */
+  name: string;
+
+  /**
+   * The classname that is used for the context-pad item for this action.
+   * Use this to render a suitable icon.
+   */
+  className: string;
+
+  /**
+   * Text rendered in the tooltip of this context-pad item.
+   */
+  title: string;
+}
+
 export interface DiagramEditor<T> {
   /**
    * Set the diagram's viewbox
@@ -194,6 +217,13 @@ export interface DiagramEditor<T> {
   onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
 
   /**
+   * Called when a context-action of a diagram item was selected.
+   *
+   * @param item the item on which the context action was triggered.
+   */
+  onContextAction(item: ActionCallback<DiagramItem<T>>): void;
+
+  /**
    * Called when the canvas was moved.
    *
    * @param move information about the movement of the diagram
@@ -202,6 +232,8 @@ export interface DiagramEditor<T> {
 }
 
 type Callback<D> = (item: D) => void;
+
+type ActionCallback<D> = (action: string, item: D) => void;
 
 export type DiagramItem<D> = ShapeItem<D> | LabelItem<D> | ConnectionItem<D>;
 
