@@ -45,6 +45,9 @@ export interface BlueprintElement<D> {
 
   /**
    * Extra actions added to this element's context pad.
+   *
+   * When selected, the onContextAction method on the editor is called with the name of the action and the diagram item
+   * where the action was selected.
    */
   contextActions?: BlueprintContextAction[];
 }
@@ -167,6 +170,7 @@ export interface BlueprintContextAction {
 
   /**
    * The classname that is used for the context-pad item for this action.
+   *
    * Use this to render a suitable icon.
    */
   className: string;
@@ -191,44 +195,44 @@ export interface DiagramEditor<T> {
   /**
    * Called when a diagram item is created or changes.
    *
-   * @param item the item that was created or changed.
+   * @param callback method that is called with the item that was created or changed.
    */
-  onItemChange(item: Callback<DiagramItem<T>>): void;
+  onItemChange(callback: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when a diagram item is removed.
    *
-   * @param item the item that was removed.
+   * @param callback method that is called with the item that was removed.
    */
-  onItemRemove(item: Callback<DiagramItem<T>>): void;
+  onItemRemove(callback: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when an item is selected.
    *
-   * @param item the item that was doubleclicked.
+   * @param callback method that is called with the item that was doubleclicked.
    */
-  onItemSelect(item: Callback<DiagramItem<T>>): void;
+  onItemSelect(callback: Callback<DiagramItem<T>>): void;
 
   /**
   * Called when a diagram item was double-clicked.
   *
-  * @param item the item that was doubleclicked.
+  * @param callback method that is called with the item that was doubleclicked.
   */
-  onItemDoubleClick(item: Callback<DiagramItem<T>>): void;
+  onItemDoubleClick(callback: Callback<DiagramItem<T>>): void;
 
   /**
    * Called when a context-action of a diagram item was selected.
    *
-   * @param item the item on which the context action was triggered.
+   * @param callback method that is called with the name of the action and the item on which the context action was triggered.
    */
-  onContextAction(item: ActionCallback<DiagramItem<T>>): void;
+  onContextAction(callback: ActionCallback<DiagramItem<T>>): void;
 
   /**
    * Called when the canvas was moved.
    *
-   * @param move information about the movement of the diagram
+   * @param callback method that is called with information about the movement of the diagram
    */
-  onCanvasMove(move: Callback<CanvasMove>): void;
+  onCanvasMove(callback: Callback<CanvasMove>): void;
 }
 
 type Callback<D> = (item: D) => void;
