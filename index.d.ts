@@ -188,6 +188,11 @@ export interface DiagramEditor<T> {
   setViewbox(viewbox: Viewbox): void;
 
   /**
+   * Create a new item in the current diagram.
+   */
+  create(item: ShapeElement<T> | ConnectionElement<T>): void;
+
+  /**
    * Load items in the diagram. Only add those emitted by onItemChange.
    */
   load(items: DiagramItem<T>[]): void;
@@ -250,7 +255,7 @@ export interface ShapeItem<D> {
   /**
    * Get the labels attached to this shape.
    */
-  getLabels: () => LabelElement[];
+  getLabels: () => LabelElement<D>[];
 
   /**
    * Get the incoming connections of this shape.
@@ -267,7 +272,7 @@ export interface LabelItem<D> {
   id: string;
   type: 'label';
   parentId: string | undefined;
-  element: LabelElement;
+  element: LabelElement<D>;
   labelTargetId: string | undefined;
 }
 
@@ -282,7 +287,7 @@ export interface ConnectionItem<D> {
   /**
    * Get the labels attached to this connection.
    */
-  getLabels: () => LabelElement[];
+  getLabels: () => LabelElement<D>[];
 
   /**
    * Get the source shape of this connection.
@@ -301,14 +306,19 @@ export interface ConnectionElement<D> {
   target: ShapeElement<D>
 }
 
-export interface LabelElement {
+export interface LabelElement<D> {
   key: string;
   content: string;
+  data?: D;
 }
 
 export interface ShapeElement<D> {
   data?: D;
   blueprint: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface CanvasMove {
@@ -324,4 +334,5 @@ export interface Point {
 export interface Viewbox extends Point {
   width: number;
   height: number;
+  scale: number;
 }
