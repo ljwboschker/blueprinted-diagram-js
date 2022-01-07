@@ -65,13 +65,6 @@ export interface BlueprintShape {
   svg: { (): string };
 
   /**
-   * Returns the content of a label.
-   *
-   * @param key the key of the requested label
-   */
-  label?: { (key: string): string; }
-
-  /**
    * The labels to place in (or by) the shapes.
    */
   labels?: BlueprintShapeLabel[];
@@ -79,9 +72,9 @@ export interface BlueprintShape {
 
 export interface BlueprintShapeLabel {
   /**
-   * The key of this label. This is passed to the label parent's label() function.
+   * The initial content of the label
    */
-  key: string;
+  content: string;
 
   /**
    * The y-offset of the label (in pixels) from the element's top.
@@ -119,14 +112,9 @@ export interface BlueprintConnection {
 
   label: {
     /**
-     * The key value attached to this label, so you can find it's content when processing create or update events.
+     * Initial content of the label.
      */
-    key?: string,
-
-    /**
-     * The default text for this label.
-     */
-    text: string,
+    content: string,
 
     textOptions: {
       style?: BlueprintTextStyle,
@@ -288,7 +276,6 @@ export interface ConnectionElement {
 }
 
 export interface LabelElement {
-  key: string;
   content: string;
 }
 
