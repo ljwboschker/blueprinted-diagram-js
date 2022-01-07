@@ -274,6 +274,11 @@ export interface LabelItem<D> {
   parentId: string | undefined;
   element: LabelElement<D>;
   labelTargetId: string | undefined;
+
+  /**
+   * Get the target shape of this label.
+   */
+   getTarget: () => ShapeElement<D>;
 }
 
 export interface ConnectionItem<D> {
