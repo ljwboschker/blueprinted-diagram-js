@@ -3,21 +3,23 @@ declare module 'blueprinted-diagram-js';
 /**
  * Create a new instance of a diagram editor.
  *
+ * T is the type of the data element that will be linked to shapes and labels.
+ *
  * @param container the DOM element to put the diagam in
  * @param blueprint the blueprint definition for this diagram
  * @returns the diagram editor
  */
-declare function createDiagramEditor(container: Element, blueprint: Blueprint): DiagramEditor;
+declare function createDiagramEditor<T = void>(container: Element, blueprint: Blueprint<T>): DiagramEditor<T>;
 
-export interface Blueprint {
+export interface Blueprint<T = void> {
   name: string;
   /**
    * Array with drawable elements.
    */
-  elements: BlueprintElement[];
+  elements: BlueprintElement<T>[];
 }
 
-export interface BlueprintElement {
+export interface BlueprintElement<T = void> {
   /**
    * Type indication for your element.
    */
@@ -31,12 +33,12 @@ export interface BlueprintElement {
   /**
    * When this element is created in the diagram, it will create a main SVG element that contains this shape.
    */
-  shape: BlueprintShape;
+  shape: BlueprintShape<T>;
 
   /**
    * Modeling rules for this element.
    */
-  rules: BlueprintRules;
+  rules: BlueprintRules<T>;
 
   /**
    * Extra actions added to this element's context pad.
@@ -47,7 +49,7 @@ export interface BlueprintElement {
   contextActions?: BlueprintContextAction[];
 }
 
-export interface BlueprintShape {
+export interface BlueprintShape<T = void> {
 
   /**
    * The width of your shape.
@@ -60,21 +62,31 @@ export interface BlueprintShape {
   height: number;
 
   /**
-   * Returns the SVG image definition (as a string).
+   * Return an object that will be linked to this shape.
+   */
+  data?: () => T;
+
+  /**
+   * Return the SVG image definition (as a string).
    */
   svg: { (): string };
 
   /**
    * The labels to place in (or by) the shapes.
    */
-  labels?: BlueprintShapeLabel[];
+  labels?: BlueprintShapeLabel<T>[];
 }
 
-export interface BlueprintShapeLabel {
+export interface BlueprintShapeLabel<T = void> {
   /**
    * The initial content of the label
    */
   content: string;
+
+  /**
+   * Return an object that will be linked to this label.
+   */
+   data?: () => T;
 
   /**
    * The y-offset of the label (in pixels) from the element's top.
@@ -85,15 +97,15 @@ export interface BlueprintShapeLabel {
   style: BlueprintTextStyle;
 }
 
-export interface BlueprintRules {
+export interface BlueprintRules<T = void> {
   /**
    * Specify that this element can only connect to the specified types.
    * If not specified, then this element cannot connect to anything.
    */
-  connect?: BlueprintConnection[];
+  connect?: BlueprintConnection<T>[];
 }
 
-export interface BlueprintConnection {
+export interface BlueprintConnection<T = void> {
   /**
    * The type of the target element.
    */
@@ -104,6 +116,11 @@ export interface BlueprintConnection {
    * Note: the arrow head will take the color of the connection's stroke style.
    */
   direction?: boolean;
+
+  /**
+   * Return an object that will be linked to this connection.
+   */
+   data?: () => T;
 
   /**
    * The connection style as a CSS rule.
@@ -159,7 +176,7 @@ export interface BlueprintContextAction {
   title: string;
 }
 
-export interface DiagramEditor {
+export interface DiagramEditor<T> {
   /**
    * Set the diagram's viewbox
    */
@@ -168,119 +185,104 @@ export interface DiagramEditor {
   /**
    * Create a new item in the current diagram.
    */
-  create(item: ShapeElement | ConnectionElement): void;
+  create(item: ShapeElement<T> | ConnectionElement<T>): void;
 
   /**
-   * Load items in the diagram. Only add those emitted by onItemChange.
+   * Load items in the diagram. Only add those<T> emitted by onItemChange.
    */
-  load(items: DiagramItem[]): void;
+  load(items: DiagramItem<T>[]): void;
 
   /**
    * Called when a diagram item is created or changes.
-   *
-   * @param callback method that is called with the item that was created or changed.
    */
-  onItemChange(callback: Callback<DiagramEvent>): void;
+  onItemChange(callback: (event: DiagramEvent<T>) => void): void;
 
   /**
    * Called when a diagram item is removed.
-   *
-   * @param callback method that is called with the item that was removed.
    */
-  onItemRemove(callback: Callback<DiagramEvent>): void;
+  onItemRemove(callback: (event: DiagramEvent<T>) => void): void;
 
   /**
    * Called when an item is selected.
-   *
-   * @param callback method that is called with the item that was doubleclicked.
    */
-  onItemSelect(callback: Callback<DiagramEvent>): void;
+  onItemSelect(callback: (event: DiagramEvent<T>) => void): void;
 
   /**
   * Called when a diagram item was double-clicked.
-  *
-  * @param callback method that is called with the item that was doubleclicked.
   */
-  onItemDoubleClick(callback: Callback<DiagramEvent>): void;
+  onItemDoubleClick(callback: (event: DiagramEvent<T>) => void): void;
 
   /**
    * Called when a context-action of a diagram item was selected.
-   *
-   * @param callback method that is called with the name of the action and the item on which the context action was triggered.
    */
-  onContextAction(callback: ActionCallback<DiagramEvent>): void;
+  onContextAction(callback: (name: string, event: DiagramEvent<T>) => void): void;
 
   /**
    * Called when the canvas was moved.
-   *
-   * @param callback method that is called with information about the movement of the diagram
    */
-  onCanvasMove(callback: Callback<CanvasMoveEvent>): void;
+  onCanvasMove(callback: (event: CanvasMoveEvent) => void): void;
 }
 
-type Callback<D> = (item: D) => void;
+export type DiagramEvent<T> = ShapeEvent<T> | LabelEvent<T> | ConnectionEvent<T>;
 
-type ActionCallback<D> = (action: string, item: D) => void;
-
-export type DiagramEvent = ShapeEvent | LabelEvent | ConnectionEvent;
-
-export interface ShapeEvent {
+export interface ShapeEvent<T> {
   type: 'shape';
-  item: ShapeItem;
+  item: ShapeItem<T>;
 }
 
-export interface LabelEvent {
+export interface LabelEvent<T> {
   type: 'label';
-  item: LabelItem;
+  item: LabelItem<T>;
 
-  getTarget: () => ShapeElement;
+  getTarget: () => ShapeItem<T>;
 }
 
-export interface ConnectionEvent {
+export interface ConnectionEvent<T> {
   type: 'connection',
-  item: ConnectionItem;
+  item: ConnectionItem<T>;
 
-  getSource: () => ShapeElement;
-  getTarget: () => ShapeElement;
+  getSource: () => ShapeItem<T>;
+  getTarget: () => ShapeItem<T>;
 }
 
-export type DiagramItem = ShapeItem | LabelItem | ConnectionItem;
+export type DiagramItem<T> = ShapeItem<T> | LabelItem<T> | ConnectionItem<T>;
 
-export interface ShapeItem {
+export interface ShapeItem<T> {
   id: string;
   type: 'shape';
   parentId: string | undefined;
-  element: ShapeElement;
+  element: ShapeElement<T>;
 }
 
-export interface LabelItem {
+export interface LabelItem<T> {
   id: string;
   type: 'label';
   parentId: string | undefined;
-  element: LabelElement;
+  element: LabelElement<T>;
   labelTargetId: string | undefined;
 }
 
-export interface ConnectionItem {
+export interface ConnectionItem<T> {
   id: string;
   type: 'connection';
   parentId: string | undefined;
-  element: ConnectionElement;
+  element: ConnectionElement<T>;
   sourceId: string;
   targetId: string;
 }
 
-export interface ConnectionElement {
-  source: ShapeElement,
-  target: ShapeElement
+export interface ConnectionElement<T> {
+  data?: T
 }
 
-export interface LabelElement {
+export interface LabelElement<T> {
   content: string;
+  data?: T;
 }
 
-export interface ShapeElement {
+export interface ShapeElement<T> {
   blueprint: string;
+  data?: T;
   x: number;
   y: number;
   width: number;
