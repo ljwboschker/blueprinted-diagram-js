@@ -196,6 +196,14 @@ export interface DiagramEditor<T> {
   load(items: DiagramItem<T>[]): void;
 
   /**
+   * Refresh a specific shape in the diagram.
+   * This will rerender the SVG and update any labels.
+   *
+   * @param shapeId
+   */
+  refresh(shapeId: string): void;
+
+  /**
    * Called when a diagram item is created or changes.
    */
   onItemChange(callback: (event: DiagramEvent<T>) => void): void;
