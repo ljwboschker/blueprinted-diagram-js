@@ -234,15 +234,15 @@ export interface LabelEvent<T> {
   type: 'label';
   item: LabelItem<T>;
 
-  getTarget: () => ShapeItem<T>;
+  getTarget: () => ShapeElement<T>;
 }
 
 export interface ConnectionEvent<T> {
   type: 'connection',
   item: ConnectionItem<T>;
 
-  getSource: () => ShapeItem<T>;
-  getTarget: () => ShapeItem<T>;
+  getSource: () => ShapeElement<T>;
+  getTarget: () => ShapeElement<T>;
 }
 
 export type DiagramItem<T> = ShapeItem<T> | LabelItem<T> | ConnectionItem<T>;
