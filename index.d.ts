@@ -1,3 +1,5 @@
+import { ElementData } from "src/app/modules/atlas/context-diagram/context-diagram.blueprint";
+
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -69,7 +71,7 @@ export interface BlueprintShape<T = void> {
   /**
    * Return the SVG image definition (as a string).
    */
-  svg: { (): string };
+  svg: { (data?: T): string };
 
   /**
    * The labels to place in (or by) the shapes.
@@ -79,16 +81,16 @@ export interface BlueprintShape<T = void> {
 
 export interface BlueprintShapeLabel<T = void> {
   /**
-   * The initial content of the label
-   */
-  content: string;
-
-  /**
    * Return an object that will be linked to this label.
    */
-   data?: () => T;
+  data?: (target: DiagramEvent<T>) => T;
 
   /**
+   * Return the content of the label.
+   */
+  content: { (data: T): string };
+
+   /**
    * The y-offset of the label (in pixels) from the element's top.
    * Note: labels are always centered with the element.
    */
@@ -120,7 +122,7 @@ export interface BlueprintConnection<T = void> {
   /**
    * Return an object that will be linked to this connection.
    */
-   data?: () => T;
+  data?: () => T;
 
   /**
    * The connection style as a CSS rule.
@@ -130,6 +132,7 @@ export interface BlueprintConnection<T = void> {
   label: {
     /**
      * Initial content of the label.
+     * TODO: use function here?
      */
     content: string,
 
