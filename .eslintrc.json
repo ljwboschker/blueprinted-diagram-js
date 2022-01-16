@@ -16,6 +16,7 @@
         "no-console": "off",
         "no-underscore-dangle": "off",
         "max-len": ["warn", { "code": 150 }],
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "class-methods-use-this": "off"
     }
 }
