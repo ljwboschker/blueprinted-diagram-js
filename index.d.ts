@@ -213,8 +213,9 @@ export interface DiagramEditor<T> {
 
   /**
    * Called when an item is selected.
+   * Event will be undefined if nothing is selected anymore.
    */
-  onItemSelect(callback: (event: DiagramEvent<T>) => void): void;
+  onItemSelect(callback: (event: DiagramEvent<T> | undefined) => void): void;
 
   /**
   * Called when a diagram item was double-clicked.
@@ -281,15 +282,18 @@ export interface ConnectionItem<T> {
 }
 
 export interface ConnectionElement<T> {
+  type: 'connection',
   data?: T
 }
 
 export interface LabelElement<T> {
+  type: 'label',
   content: string;
   data?: T;
 }
 
 export interface ShapeElement<T> {
+  type: 'shape',
   blueprint: string;
   data?: T;
   x: number;
