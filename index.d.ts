@@ -1,5 +1,3 @@
-import { ElementData } from "src/app/modules/atlas/context-diagram/context-diagram.blueprint";
-
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -196,12 +194,12 @@ export interface DiagramEditor<T> {
   load(items: DiagramItem<T>[]): void;
 
   /**
-   * Refresh a specific shape in the diagram.
+   * Refresh a specific element in the diagram.
    * This will rerender the SVG and update any labels.
    *
-   * @param shapeId
+   * @param id
    */
-  refresh(shapeId: string): void;
+  refresh(id: string): void;
 
   /**
    * Called when a diagram item is created or changes.
