@@ -5,9 +5,9 @@ declare module 'blueprinted-diagram-js';
  *
  * T is the type of the data element that will be linked to shapes and labels.
  *
- * @param container the DOM element to put the diagam in
- * @param blueprint the blueprint definition for this diagram
- * @returns the diagram editor
+ * @param container the DOM element to put the diagam in.
+ * @param blueprint the blueprint definition for this diagram.
+ * @returns the diagram editor.
  */
 declare function createDiagramEditor<T = void>(container: Element, blueprint: Blueprint<T>): DiagramEditor<T>;
 
@@ -148,12 +148,12 @@ export interface BlueprintConnection<T = void> {
 
 export interface BlueprintTextStyle {
   /**
-   * Fontsize in pixels
+   * Fontsize in pixels.
    */
   fontSize?: number,
 
   /**
-   * Text color
+   * Text color.
    */
   fill?: string
 }
@@ -179,25 +179,40 @@ export interface BlueprintContextAction {
 
 export interface DiagramEditor<T> {
   /**
-   * Set the diagram's viewbox
+   * Set the diagram's viewbox.
+   *
+   * @param viewbox
    */
   setViewbox(viewbox: Viewbox): void;
 
   /**
-   * Create a new item in the current diagram.
+   * Create a new item in the diagram based on the specified blueprint element.
+   *
+   * @param event the original click event that triggered this create. Needed to detemine the start-point for the item.
+   * @param blueprintItem
+   * @param data if specified, then this is used as the new element's data part. Of not specified, the blueprint data() method is used.
    */
-  create(item: ShapeElement<T> | ConnectionElement<T>): void;
+  create(event: Event, blueprintItem: BlueprintElement<T>, data?: T): void;
 
   /**
-   * Load items in the diagram. Only add those<T> emitted by onItemChange.
+   * Add an existing element to the diagram.
+   *
+   * @param item
+   */
+  add(item: ShapeElement<T> | ConnectionElement<T>): void;
+
+  /**
+   * Load items in the diagram. Only add those emitted by onItemChange.
+   *
+   * @param items
    */
   load(items: DiagramItem<T>[]): void;
 
   /**
-   * Refresh a specific element in the diagram.
+   * Refresh a specific item in the diagram.
    * This will rerender the SVG and update any labels.
    *
-   * @param id
+   * @param id the ID of the item to refresh.
    */
   refresh(id: string): void;
 
