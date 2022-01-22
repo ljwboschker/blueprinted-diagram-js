@@ -240,12 +240,17 @@ export interface DiagramEditor<T> {
   /**
    * Called when a context-action of a diagram item was selected.
    */
-  onContextAction(callback: (name: string, event: DiagramEvent<T>) => void): void;
+  onContextAction(callback: (action: ContextActionEvent<T>) => void): void;
 
   /**
    * Called when the canvas was moved.
    */
   onCanvasMove(callback: (event: CanvasMoveEvent) => void): void;
+}
+
+export interface ContextActionEvent<T> {
+  name: string;
+  event: DiagramEvent<T>
 }
 
 export type DiagramEvent<T> = ShapeEvent<T> | LabelEvent<T> | ConnectionEvent<T>;
