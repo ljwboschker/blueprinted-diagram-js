@@ -1,3 +1,5 @@
+import { ElementData } from "src/app/modules/atlas/diagram/diagram.models";
+
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -79,14 +81,14 @@ export interface BlueprintShape<T = void> {
   /**
    * The labels to place in (or by) the shapes.
    */
-  labels?: BlueprintShapeLabel<T>[];
+  labels?: BlueprintLabel<T>[];
 }
 
-export interface BlueprintShapeLabel<T = void> {
+export interface BlueprintLabel<T = void> {
   /**
    * Return an object that will be linked to this label.
    */
-  data?: (target: DiagramEvent<T>) => T;
+  data?: (target: DiagramEvent<ElementData>) => T;
 
   /**
    * Return the content of the label.
@@ -99,15 +101,25 @@ export interface BlueprintShapeLabel<T = void> {
    */
   y: number,
 
+  /**
+   * The CSS style for this label
+   */
   style: BlueprintTextStyle;
+
+  /**
+   * The maximum width of this label.
+   * If not specified, it will grow to the size of it's target, or a reasonable default if the target is a connection.
+   */
+  box?: {
+    width: number
+  }
 }
 
 export interface BlueprintRules<T = void> {
   /**
-   * Specify that this element can only connect to the specified types.
-   * If not specified, then this element cannot connect to anything.
+   * Called to determine if a connection can be made.
    */
-  connect?: BlueprintConnection<T>[];
+  connect?: (source: DiagramEvent<T>, target: DiagramEvent<T>) => BlueprintConnection<T> | undefined;
 
   /**
    * Set to true to allow this element to be resized.
@@ -117,43 +129,43 @@ export interface BlueprintRules<T = void> {
 
 export interface BlueprintConnection<T = void> {
   /**
-   * The type of the target element.
-   */
-  to: string,
-
-  /**
-   * Show the direction of the connection by rendering an arrow.
-   * Note: the arrow head will take the color of the connection's stroke style.
-   */
-  direction?: boolean;
-
-  /**
    * Return an object that will be linked to this connection.
    */
   data?: () => T;
 
   /**
-   * The connection style as a CSS rule.
+   * Shows an arrow to indicate the direction of the connection.
+   * The arrowhead will use the connection style's stroke.
    */
-  style?: string;
+  arrow?: boolean;
 
-  label: {
-    /**
-     * Initial content of the label.
-     * TODO: use function here?
-     */
-    content: string,
+  /**
+   * The style definition of the connection.
+   */
+  style: Partial<CSSStyleDeclaration>;
 
-    textOptions: {
-      style?: BlueprintTextStyle,
-      box: {
-        /**
-         * The width of the label text editor (in pixels).
-         */
-        width: number
-      }
-    }
-  }
+  /**
+   * The label to place with the connection.
+   */
+  label?: BlueprintLabel<T>;
+
+  // label: {
+  //   /**
+  //    * Initial content of the label.
+  //    * TODO: use function here?
+  //    */
+  //   content: string,
+
+  //   textOptions: {
+  //     style?: BlueprintTextStyle,
+  //     box: {
+  //       /**
+  //        * The width of the label text editor (in pixels).
+  //        */
+  //       width: number
+  //     }
+  //   }
+  // }
 }
 
 export interface BlueprintTextStyle {
