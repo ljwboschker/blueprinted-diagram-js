@@ -50,7 +50,6 @@ export interface BlueprintElement<T = void> {
 }
 
 export interface BlueprintShape<T = void> {
-
   /**
    * The width of your shape.
    */
@@ -70,6 +69,12 @@ export interface BlueprintShape<T = void> {
    * Return the SVG image definition (as a string).
    */
   svg: { (data?: T): string };
+
+  /**
+   * The SVG to use in the palette and context-pad.
+   * If not defined, the svg() method is used.
+   */
+  iconSvg?: { (data?: T): string };
 
   /**
    * The labels to place in (or by) the shapes.
@@ -103,6 +108,11 @@ export interface BlueprintRules<T = void> {
    * If not specified, then this element cannot connect to anything.
    */
   connect?: BlueprintConnection<T>[];
+
+  /**
+   * Set to true to allow this element to be resized.
+   */
+  resizable?: boolean;
 }
 
 export interface BlueprintConnection<T = void> {
