@@ -117,14 +117,26 @@ export interface BlueprintLabel<T = void> {
 
 export interface BlueprintRules<T = void> {
   /**
-   * Called to determine if a connection can be made.
+   * Determine connections from this element.
    */
-  connect?: (source: DiagramEvent<T>, target: DiagramEvent<T>) => BlueprintConnection<T> | undefined;
+  connections?: BlueprintConnectionRule<T>;
 
   /**
    * Set to true to allow this element to be resized.
    */
   resizable?: boolean;
+}
+
+export interface BlueprintConnectionRule<T = void> {
+  /**
+   * Indicate if a connection to a target of this type is allowed.
+   */
+  allowed: (targetType: string) => boolean;
+
+  /**
+   * Return the connection definition.
+   */
+  connect: (source: DiagramEvent<T>, target: DiagramEvent<T>) => BlueprintConnection<T>;
 }
 
 export interface BlueprintConnection<T = void> {
