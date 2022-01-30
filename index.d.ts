@@ -117,6 +117,14 @@ export interface BlueprintLabel<T = void> {
 
 export interface BlueprintRules<T = void> {
   /**
+   * Determine if the element is allowed.
+   * If not defined, then it is allowed.
+   *
+   * @param target the target element, or undefined if the target is the root of the diagram
+   */
+  allowed?: (target: DiagramEvent<T> | undefined) => boolean;
+
+  /**
    * Determine connections from this element.
    */
   connections?: BlueprintConnectionRule<T>;
