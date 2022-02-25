@@ -102,9 +102,9 @@ export interface BlueprintLabel<T = void> {
 
 export interface BlueprintLabelPosition {
   /**
-   * Defines how to align the label with it's target element.
+   * Defines how the label is anchored to it's target element. This defines how the label moves when the target is moved or resized.
    */
-  alignment: BlueprintLabelPositionAlignment;
+  anchor: 'left-top' | 'left-middle' | 'left-bottom' | 'center-top' | 'center-middle' | 'center-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
 
   /**
   * The offset of the initial position of the label
@@ -114,8 +114,6 @@ export interface BlueprintLabelPosition {
     y?: number
   };
 }
-
-export type BlueprintLabelPositionAlignment = 'left-top' | 'left-middle' | 'left-bottom' | 'center-top' | 'center-middle' | 'center-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
 
 export interface BlueprintTextOptions {
 
