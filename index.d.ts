@@ -95,11 +95,29 @@ export interface BlueprintLabel<T = void> {
    */
   content: { (data: T): string };
 
-   /**
-   * The y-offset of the label (in pixels) from the element's top.
-   * Note: labels are always centered with the element.
+  position: BlueprintLabelPosition;
+
+  textOptions: BlueprintTextOptions;
+}
+
+export interface BlueprintLabelPosition {
+  /**
+   * Defines how to align the label with it's target element.
    */
-  y: number,
+  alignment: BlueprintLabelPositionAlignment;
+
+  /**
+  * The offset of the initial position of the label
+  */
+  offset?: {
+    x?: number,
+    y?: number
+  };
+}
+
+export type BlueprintLabelPositionAlignment = 'left-top' | 'left-middle' | 'left-bottom' | 'center-top' | 'center-middle' | 'center-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
+
+export interface BlueprintTextOptions {
 
   /**
    * The CSS style for this label
@@ -107,12 +125,16 @@ export interface BlueprintLabel<T = void> {
   style: BlueprintTextStyle;
 
   /**
-   * The maximum width of this label.
-   * If not specified, it will grow to the size of it's target, or a reasonable default if the target is a connection.
+   * Alignment of the text in the label
    */
-  box?: {
+  align: 'left' | 'center' | 'right';
+
+  /**
+   * The initial width of the label
+   */
+  box: {
     width: number
-  }
+  };
 }
 
 export interface BlueprintRules<T = void> {
