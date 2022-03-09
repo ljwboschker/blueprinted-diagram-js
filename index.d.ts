@@ -81,10 +81,10 @@ export interface BlueprintShape<T = void> {
   /**
    * The labels to place in (or by) the shapes.
    */
-  labels?: BlueprintLabel<T>[];
+  labels?: BlueprintShapeLabel<T>[];
 }
 
-export interface BlueprintLabel<T = void> {
+export interface BlueprintShapeLabel<T = void> {
   /**
    * Return an object that will be linked to this label.
    */
@@ -97,7 +97,7 @@ export interface BlueprintLabel<T = void> {
 
   position: BlueprintLabelPosition;
 
-  textOptions: BlueprintTextOptions;
+  textOptions: BlueprintShapeLabelTextOptions;
 }
 
 export interface BlueprintLabelPosition {
@@ -115,7 +115,7 @@ export interface BlueprintLabelPosition {
   };
 }
 
-export interface BlueprintTextOptions {
+export interface BlueprintShapeLabelTextOptions {
 
   /**
    * The CSS style for this label
@@ -187,25 +187,36 @@ export interface BlueprintConnection<T = void> {
   /**
    * The label to place with the connection.
    */
-  label?: BlueprintLabel<T>;
+  label?: BlueprintConnectionLabel<T>;
+}
 
-  // label: {
-  //   /**
-  //    * Initial content of the label.
-  //    * TODO: use function here?
-  //    */
-  //   content: string,
+export interface BlueprintConnectionLabel<T> {
+  /**
+   * Return an object that will be linked to this label.
+   */
+   data?: (target: DiagramEvent<ElementData>) => T;
 
-  //   textOptions: {
-  //     style?: BlueprintTextStyle,
-  //     box: {
-  //       /**
-  //        * The width of the label text editor (in pixels).
-  //        */
-  //       width: number
-  //     }
-  //   }
-  // }
+   /**
+    * Return the content of the label.
+    */
+   content: { (data: T): string };
+
+   textOptions: BlueprintConnectionLabelTextOptions;
+}
+
+export interface BlueprintConnectionLabelTextOptions {
+
+  /**
+   * The CSS style for this label
+   */
+  style: BlueprintTextStyle;
+
+  /**
+   * The initial width of the label
+   */
+  box: {
+    width: number
+  };
 }
 
 export interface BlueprintTextStyle {
