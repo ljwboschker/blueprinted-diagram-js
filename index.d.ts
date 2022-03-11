@@ -164,7 +164,7 @@ export interface BlueprintConnectionRule<T = void> {
   /**
    * Return an object that will be linked to this connection.
    */
-  data?: () => T;
+  data?: (source: DiagramEvent<ElementData>, target: DiagramEvent<ElementData>) => T;
 
   /**
    * Shows an arrow to indicate the direction of the connection.
