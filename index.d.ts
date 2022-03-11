@@ -162,13 +162,6 @@ export interface BlueprintConnectionRule<T = void> {
   allowed: (targetType: string) => boolean;
 
   /**
-   * The connection definition.
-   */
-  connect: BlueprintConnection<T>;
-}
-
-export interface BlueprintConnection<T = void> {
-  /**
    * Return an object that will be linked to this connection.
    */
   data?: () => T;
