@@ -162,9 +162,9 @@ export interface BlueprintConnectionRule<T = void> {
   allowed: (targetType: string) => boolean;
 
   /**
-   * Return the connection definition.
+   * The connection definition.
    */
-  connect: (source: DiagramEvent<T>, target: DiagramEvent<T>) => BlueprintConnection<T>;
+  connect: BlueprintConnection<T>;
 }
 
 export interface BlueprintConnection<T = void> {
