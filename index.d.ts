@@ -19,6 +19,11 @@ export interface Blueprint<T = void> {
    * Array with drawable elements.
    */
   elements: BlueprintElement<T>[];
+
+  /**
+   * Any popups for this diagram. A popup van be triggered by a context action.
+   */
+  popups?: BlueprintPopup<T>[];
 }
 
 export interface BlueprintElement<T = void> {
@@ -48,7 +53,7 @@ export interface BlueprintElement<T = void> {
    * When selected, the onContextAction method on the editor is called with the name of the action and the diagram item
    * where the action was selected.
    */
-  contextActions?: BlueprintContextAction[];
+  contextActions?: BlueprintContextAction<T>[];
 }
 
 export interface BlueprintShape<T = void> {
@@ -224,7 +229,7 @@ export interface BlueprintTextStyle {
   fill?: string
 }
 
-export interface BlueprintContextAction {
+export interface BlueprintContextAction<T> {
   /**
    * The name of the action.
    */
@@ -241,6 +246,34 @@ export interface BlueprintContextAction {
    * Text rendered in the tooltip of this context-pad item.
    */
   title: string;
+
+  /**
+   * If specified, then this context action will trigger the popup with this name.
+   */
+  popup?: string;
+}
+
+export interface BlueprintPopup<T> {
+  name: string;
+
+  items: (source: DiagramEvent<T>) => BlueprintPopupMenuItem[];
+}
+
+export interface BlueprintPopupMenuItem {
+  /**
+   * The name of the action.
+   */
+  name: string;
+
+  /**
+   * The text for this popup item.
+   */
+   title: string;
+
+   /**
+   * The clasname that is used for the popup menu item for this action.
+   */
+  className?: string;
 }
 
 export interface DiagramEditor<T> {
