@@ -49,9 +49,6 @@ export interface BlueprintElement<T = void> {
 
   /**
    * Extra actions added to this element's context pad.
-   *
-   * When selected, the onContextAction method on the editor is called with the name of the action and the diagram item
-   * where the action was selected.
    */
   contextActions?: BlueprintContextAction<T>[];
 }
@@ -231,7 +228,12 @@ export interface BlueprintTextStyle {
 
 export interface BlueprintContextAction<T> {
   /**
-   * The name of the action.
+   * The type of context action. 'action' will immediately trigger an onContextAction event, while 'popup' will open a popup with sub-options.
+   */
+  type: 'action' | 'popup';
+
+  /**
+   * If type is 'action', then this contains the name in the onCntextAction event that is triggered. If 'popup', it will open the popup with this name.
    */
   name: string;
 
@@ -246,11 +248,6 @@ export interface BlueprintContextAction<T> {
    * Text rendered in the tooltip of this context-pad item.
    */
   title: string;
-
-  /**
-   * If specified, then this context action will trigger the popup with this name.
-   */
-  popup?: string;
 }
 
 export interface BlueprintPopup<T> {
@@ -261,7 +258,7 @@ export interface BlueprintPopup<T> {
 
 export interface BlueprintPopupMenuItem {
   /**
-   * The name of the action.
+   * The name in the onContextAction event that is triggered when  this popup menu item is selected.
    */
   name: string;
 
