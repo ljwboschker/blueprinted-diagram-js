@@ -354,6 +354,8 @@ export type DiagramEvent<T> = ShapeEvent<T> | LabelEvent<T> | ConnectionEvent<T>
 export interface ShapeEvent<T> {
   type: 'shape';
   item: ShapeItem<T>;
+
+  getParent: () => ShapeElement<T>;
 }
 
 export interface LabelEvent<T> {
