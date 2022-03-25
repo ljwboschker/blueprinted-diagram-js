@@ -13,8 +13,12 @@
     "typescript",
     "diagrams"
   ],
-  "author": "Wirebird",
+  "author": "LJW Boschker",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ljwboschker/blueprinted-diagram-js"
+  },
   "dependencies": {
     "bpmn-font": "^0.10.0",
     "diagram-js": "^7.7.0",
