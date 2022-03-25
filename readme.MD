@@ -11,7 +11,7 @@ When using this module, don't forget to import the stylesheets:
 ```css
 @import './node_modules/diagram-js/assets/diagram-js.css';
 @import './node_modules/bpmn-font/dist/css/bpmn.css';
-@import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css'
+@import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css';
 ```
 
 ## Development
@@ -19,3 +19,16 @@ When using this module, don't forget to import the stylesheets:
 For easy develop of this package, link it to a typescripted client application (e.g. an Angular app) using `npm link (path to this package)`.
 
 This way changes in this code is immediately reflected in the client application.
+
+## Publishing
+
+To publish this package, use npm to give it a version and push the tag to git:
+
+```bash
+npm version v1.0.2
+git push --tags
+```
+
+Be sure to use [semantic versioning](https://semver.org)!
+
+Next, [create a release in Gitlab](https://github.com/ljwboschker/blueprinted-diagram-js/releases) using this tag. The version will automatically be published to NPM by a Github action
