@@ -11,7 +11,7 @@ When using this module, don't forget to import the stylesheets:
 ```css
 @import './node_modules/diagram-js/assets/diagram-js.css';
 @import './node_modules/bpmn-font/dist/css/bpmn.css';
-@import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css'
+@import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css';
 ```
 
 ## Development
