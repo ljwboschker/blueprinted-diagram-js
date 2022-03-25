@@ -6,6 +6,6 @@ Elements and rules can be configured for each instance through a typed blueprint
 
 ## Development
 
-For easy develop of this package, link it to a typescripted client application (e.g. an Angular app) using `npm link (path to this package)`. Don't forget to @import the `styles.css` from this package!
+For easy develop of this package, link it to a typescripted client application (e.g. an Angular app) using `npm link (path to this package)`.
 
 This way changes in this code is immediately reflected in the client application.
