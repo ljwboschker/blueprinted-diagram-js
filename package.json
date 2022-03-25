@@ -24,7 +24,7 @@
     "diagram-js": "^7.7.0",
     "diagram-js-direct-editing": "^1.6.3",
     "inherits": "^2.0.4",
-    "tiny-svg": "^2.2.2",
+    "tiny-svg": "^2.2.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
