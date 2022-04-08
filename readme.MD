@@ -2,11 +2,11 @@
 
 This package provides an opinionated wrapper for the excellent [diagram-js](https://github.com/bpmn-io/diagram-js) library.
 
-Elements and rules can be configured for each instance through a typed blueprint. Events from the diagram are published via RxJs observabled.
+Elements and rules can be configured for each instance through a typed blueprint.
 
 ## Styling
 
-When using this module, don't forget to import the stylesheets:
+Of you use this package, you'll need to import the stylesheets in your application:
 
 ```css
 @import './node_modules/diagram-js/assets/diagram-js.css';

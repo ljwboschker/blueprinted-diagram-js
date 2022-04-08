@@ -1,7 +1,7 @@
 {
   "name": "@softwareatlas/blueprinted-diagram-js",
   "version": "1.0.1",
-  "description": "A typescript observable wrapper around diagram-js",
+  "description": "A typescript wrapper around diagram-js",
   "main": "index.js",
   "scripts": {
     "lint": "eslint lib/**",
@@ -9,7 +9,7 @@
   },
   "keywords": [
     "diagram-js",
-    "rxjs",
+    "diagramjs",
     "typescript",
     "diagrams"
   ],
