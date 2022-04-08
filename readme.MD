@@ -4,13 +4,21 @@ This package provides an opinionated wrapper for the excellent [diagram-js](http
 
 Elements and rules can be configured for each instance through a typed blueprint.
 
+## Installation
+
+Install [diagram-js](https://www.npmjs.com/package/diagram-js), [bpmn-font](https://www.npmjs.com/package/bpmn-font) and [this package](https://www.npmjs.com/package/@softwareatlas/blueprinted-diagram-js) together:
+
+```
+npm install diagram-js bpmn-font @softwareatlas/blueprinted-diagram-js
+```
+
 ## Styling
 
-This package imports stylesheets from diagram-js. In order to work, you'll need a css preprocessor (like webpack with css-loader) to import them correctly.
-
-You'll need to import the following stylesheet in your application:
+Make sure you import all required stylesheets in the appropriate order. For example, when using webpack with css-loader:
 
 ```css
+@import '~diagram-js/assets/diagram-js.css';
+@import '~bpmn-font/dist/css/bpmn.css';
 @import '~@softwareatlas/blueprinted-diagram-js/styles.css';
 ```
 
