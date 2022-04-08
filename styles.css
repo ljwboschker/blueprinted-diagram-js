@@ -1,3 +1,6 @@
+@import 'node_modules/diagram-js/assets/diagram-js.css';
+@import 'node_modules/bpmn-font/dist/css/bpmn.css';
+
 .djs-container {
   /* Bugfix diagram-js: color definition for snap lines */
   --color-blue-205-100-50-opacity-30: hsl(205, 100%, 50%, 30%);

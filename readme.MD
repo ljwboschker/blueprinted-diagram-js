@@ -6,11 +6,9 @@ Elements and rules can be configured for each instance through a typed blueprint
 
 ## Styling
 
-Of you use this package, you'll need to import the stylesheets in your application:
+You'll need to import the following stylesheet in your application:
 
 ```css
-@import './node_modules/diagram-js/assets/diagram-js.css';
-@import './node_modules/bpmn-font/dist/css/bpmn.css';
 @import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css';
 ```
 
