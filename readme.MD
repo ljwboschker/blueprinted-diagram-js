@@ -6,10 +6,12 @@ Elements and rules can be configured for each instance through a typed blueprint
 
 ## Styling
 
+This package imports stylesheets from diagram-js. In order to work, you'll need a css preprocessor (like webpack with css-loader) to import them correctly.
+
 You'll need to import the following stylesheet in your application:
 
 ```css
-@import './node_modules/@softwareatlas/blueprinted-diagram-js/styles.css';
+@import '~@softwareatlas/blueprinted-diagram-js/styles.css';
 ```
 
 ## Development
