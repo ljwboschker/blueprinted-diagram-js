@@ -24,9 +24,17 @@ Make sure you import all required stylesheets in the appropriate order. For exam
 
 ## Development
 
-For easy develop of this package, link it to a typescripted client application (e.g. an Angular app) using `npm link (path to this package)`.
+For easy develop of this package, link it to a typescripted client application (e.g. an Angular app).
+
+In order to do this, add the following entry to the client application's package.json:
+
+```json
+"@softwareatlas/blueprinted-diagram-js": "file:(relative path to this package)"
+```
 
 This way changes in this code is immediately reflected in the client application.
+
+> Do not forget to replace this with the correct package version when done!
 
 ## Publishing
 

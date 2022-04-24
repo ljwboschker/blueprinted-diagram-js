@@ -183,6 +183,11 @@ export interface BlueprintConnectionRule<T = void> {
    * The label to place with the connection.
    */
   label?: BlueprintConnectionLabel<T>;
+
+  /**
+   * Extra actions added to this connection's context pad.
+   */
+   contextActions?: BlueprintContextAction<T>[];
 }
 
 export interface BlueprintConnectionLabel<T> {
@@ -248,6 +253,11 @@ export interface BlueprintContextAction<T> {
    * Text rendered in the tooltip of this context-pad item.
    */
   title: string;
+
+  /**
+   * If specified, call this method to determine if the context action is allowed.
+   */
+  allowed?: (source: DiagramEvent<T>) => boolean;
 }
 
 export interface BlueprintPopup<T> {
