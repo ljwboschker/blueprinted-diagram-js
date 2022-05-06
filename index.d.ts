@@ -323,6 +323,24 @@ export interface DiagramEditor<T> {
   refresh(id: string): void;
 
   /**
+   * Add an overlay to an item.
+   *
+   * @param id the ID of the item to attach the overlay to
+   * @param type the type of overlay
+   * @param overlay
+   *
+   * @returns the ID of the created overlay
+   */
+  addOverlay(id: string, type: string, overlay: DiagramOverlay): string;
+
+  /**
+   * Remove one or more overlays from the diagarm.
+   *
+   * @param filter the overlay(s) to remove
+   */
+  removeOverlays(filter: DiagramOverlayFilter): void;
+
+  /**
    * Called when a diagram item is created or changes.
    */
   onItemChange(callback: (event: DiagramEvent<T>) => void): void;
@@ -352,6 +370,57 @@ export interface DiagramEditor<T> {
    * Called when the canvas was moved.
    */
   onCanvasMove(callback: (event: CanvasMoveEvent) => void): void;
+}
+
+
+export interface DiagramOverlay {
+  /**
+   * String with HTML of the overlay.
+   */
+  html: string;
+
+  /**
+   * The position of the overlay.
+   */
+  position: {
+    left?: number;
+    top?: number;
+    bottom?: number;
+    right?: number;
+  },
+
+  /**
+   * The minimum and maximum zoom levels at which this overlay is shown.
+   */
+  show?: {
+    minZoom?: number;
+     maxZoom?: number;
+  },
+
+  /**
+   * The minumum and maximum scale to which this overlay scales.
+   */
+  scale?: {
+    min?: number;
+    max?: number;
+  }
+}
+
+export interface DiagramOverlayFilter {
+  /**
+   * The ID of the overlay to remove.
+   */
+  id?: string;
+
+  /**
+   * The ID of the item whose overlays to remove.
+   */
+  itemId?: string;
+
+  /**
+   * Remove all overlays of this type.
+   */
+  type?: string;
 }
 
 export interface ContextActionEvent<T> {
