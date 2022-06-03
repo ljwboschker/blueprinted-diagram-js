@@ -381,8 +381,9 @@ export interface DiagramOverlay {
 
   /**
    * The position of the overlay.
+   * Note: the position is NOT used for connection overlays. A connection overlay is always positioned near the first waypoint of the connection.
    */
-  position: {
+  position?: {
     left?: number;
     top?: number;
     bottom?: number;
