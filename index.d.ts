@@ -297,15 +297,16 @@ export interface DiagramEditor<T> {
    * @param event the original click event that triggered this create. Needed to detemine the start-point for the item.
    * @param blueprintItem
    * @param data if specified, then this is used as the new element's data part. Of not specified, the blueprint data() method is used.
+   * @param source if specified, then the new element will be automatically be connected to this element.
    */
-  create(event: Event, blueprintItem: BlueprintElement<T>, data?: T): void;
+  create(event: Event, blueprintItem: BlueprintElement<T>, data?: T, sourceId?: string): void;
 
   /**
    * Add an existing element to the diagram.
    *
    * @param item
    */
-  add(item: ShapeElement<T> | ConnectionElement<T>): void;
+  add(item: NewShapeElement<T> | NewConnectionElement<T>): void;
 
   /**
    * Load items in the diagram. Only add those emitted by onItemChange.
@@ -484,6 +485,8 @@ export interface ConnectionElement<T> {
   data?: T
 }
 
+export type NewConnectionElement<T> = Omit<ConnectionElement<T>, 'id'>;
+
 export interface LabelElement<T> {
   type: 'label',
   content: string;
@@ -492,6 +495,7 @@ export interface LabelElement<T> {
 
 export interface ShapeElement<T> {
   type: 'shape',
+  id: string;
   blueprint: string;
   data?: T;
   x: number;
@@ -499,6 +503,8 @@ export interface ShapeElement<T> {
   width: number;
   height: number;
 }
+
+export type NewShapeElement<T> = Omit<ShapeElement<T>, 'id'>;
 
 export interface CanvasMoveEvent {
   delta: Point,
