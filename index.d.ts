@@ -302,6 +302,14 @@ export interface DiagramEditor<T> {
   create(event: Event, blueprintItem: BlueprintElement<T>, data?: T, sourceId?: string): void;
 
   /**
+   * Create a connection between two existing elements.
+   *
+   * @param sourceId
+   * @param targetId
+   */
+  connect(sourceId: string, targetId: string): void;
+
+  /**
    * Add an existing element to the diagram.
    *
    * @param item
