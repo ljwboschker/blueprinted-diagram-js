@@ -379,6 +379,11 @@ export interface DiagramEditor<T> {
    * Called when the canvas was moved.
    */
   onCanvasMove(callback: (event: CanvasMoveEvent) => void): void;
+
+  /**
+   * Destroy the diagram. This will clean up all event listener.
+   */
+  destroy(): void;
 }
 
 
