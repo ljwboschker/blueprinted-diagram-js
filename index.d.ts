@@ -285,6 +285,13 @@ export interface BlueprintPopupMenuItem {
 
 export interface DiagramEditor<T> {
   /**
+   * Get the current viewbox
+   *
+   * @returns the current viewbox of the diagram
+   */
+  getViewbox(): Viewbox;
+
+  /**
    * Set the diagram's viewbox.
    *
    * @param viewbox
