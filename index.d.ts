@@ -1,5 +1,3 @@
-import { ElementData } from "src/app/modules/atlas/diagram/diagram.models";
-
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -90,7 +88,7 @@ export interface BlueprintShapeLabel<T = void> {
   /**
    * Return an object that will be linked to this label.
    */
-  data?: (target: DiagramEvent<ElementData>) => T;
+  data?: (target: DiagramEvent<T>) => T;
 
   /**
    * Return the content of the label.
@@ -166,7 +164,7 @@ export interface BlueprintConnectionRule<T = void> {
   /**
    * Return an object that will be linked to this connection.
    */
-  data?: (source: DiagramEvent<ElementData>, target: DiagramEvent<ElementData>) => T;
+  data?: (source: DiagramEvent<T>, target: DiagramEvent<T>) => T;
 
   /**
    * Shows an arrow to indicate the direction of the connection.
@@ -194,7 +192,7 @@ export interface BlueprintConnectionLabel<T> {
   /**
    * Return an object that will be linked to this label.
    */
-   data?: (target: DiagramEvent<ElementData>) => T;
+   data?: (target: DiagramEvent<T>) => T;
 
    /**
     * Return the content of the label.
