@@ -387,6 +387,11 @@ export interface DiagramEditor<T> {
   onCanvasMove(callback: (event: CanvasMoveEvent) => void): void;
 
   /**
+   * Get the SVG content as a string, suitable for saving.
+   */
+  saveSvg(): string;
+
+  /**
    * Destroy the diagram. This will clean up all event listener.
    */
   destroy(): void;
