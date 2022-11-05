@@ -11,6 +11,17 @@ declare module 'blueprinted-diagram-js';
  */
 declare function createDiagramEditor<T = void>(container: Element, blueprint: Blueprint<T>): DiagramEditor<T>;
 
+/**
+ * Create a new instance of a diagram viewer.
+ *
+ * T is the type of the data element that will be linked to shapes and labels.
+ *
+ * @param container the DOM element to put the diagam in.
+ * @param blueprint the blueprint definition for this diagram.
+ * @returns the viewer.
+ */
+declare function createDiagramViewer<T = void>(container: Element, blueprint: Blueprint<T>): DiagramViewer<T>;
+
 export interface Blueprint<T = void> {
   name: string;
   /**
@@ -186,21 +197,21 @@ export interface BlueprintConnectionRule<T = void> {
   /**
    * Extra actions added to this connection's context pad.
    */
-   contextActions?: BlueprintContextAction<T>[];
+  contextActions?: BlueprintContextAction<T>[];
 }
 
 export interface BlueprintConnectionLabel<T> {
   /**
    * Return an object that will be linked to this label.
    */
-   data?: (target: DiagramEvent<T>) => T;
+  data?: (target: DiagramEvent<T>) => T;
 
-   /**
-    * Return the content of the label.
-    */
-   content: { (data: T): string };
+  /**
+   * Return the content of the label.
+   */
+  content: { (data: T): string };
 
-   textOptions: BlueprintConnectionLabelTextOptions;
+  textOptions: BlueprintConnectionLabelTextOptions;
 }
 
 export interface BlueprintConnectionLabelTextOptions {
@@ -274,12 +285,57 @@ export interface BlueprintPopupMenuItem {
   /**
    * The text for this popup item.
    */
-   title: string;
+  title: string;
 
-   /**
-   * The clasname that is used for the popup menu item for this action.
-   */
+  /**
+  * The clasname that is used for the popup menu item for this action.
+  */
   className?: string;
+}
+
+export interface DiagramViewer<T> {
+  /**
+   * Set the viewer's viewbox.
+   *
+   * @param viewbox
+   */
+  setViewbox(viewbox: Viewbox): void;
+
+  /**
+   * Load items in the viewer.
+   *
+   * @param items
+   */
+  load(items: DiagramItem<T>[]): void;
+
+  /**
+   * Refresh a specific item in the diagram.
+   * This will rerender the SVG and update any labels.
+   *
+   * @param id the ID of the item to refresh.
+   */
+  refresh(id: string): void;
+
+  /**
+   * Add an overlay to an item.
+   *
+   * @param id the ID of the item to attach the overlay to
+   * @param type the type of overlay
+   * @param overlay
+   *
+   * @returns the ID of the created overlay
+   */
+  addOverlay(id: string, type: string, overlay: DiagramOverlay): string;
+
+  /**
+   * Get the SVG content as a string, suitable for saving.
+   */
+  saveSvg(): string;
+
+  /**
+   * Destroy the viewer.
+   */
+  destroy(): void;
 }
 
 export interface DiagramEditor<T> {
@@ -296,6 +352,11 @@ export interface DiagramEditor<T> {
    * @param viewbox
    */
   setViewbox(viewbox: Viewbox): void;
+
+  /**
+   * Reposition all elements to the origin of the canvas.
+   */
+  alignToOrigin(): void;
 
   /**
    * Create a new item in the diagram based on the specified blueprint element.
@@ -420,7 +481,7 @@ export interface DiagramOverlay {
    */
   show?: {
     minZoom?: number;
-     maxZoom?: number;
+    maxZoom?: number;
   },
 
   /**
