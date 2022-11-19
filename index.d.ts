@@ -90,9 +90,45 @@ export interface BlueprintShape<T = void> {
   iconSvg?: { (data?: T): string };
 
   /**
-   * The labels to place in (or by) the shapes.
+   * Text to embed in this shape. Embedded text cannot be resized, moved or deleted.
+   */
+  embeddedText?: BlueprintEmbeddedText<T>;
+
+  /**
+   * The labels to place in (or by) the shapes. Labels can be resized, moved or deleted.
    */
   labels?: BlueprintShapeLabel<T>[];
+}
+
+export interface BlueprintEmbeddedText<T = void> {
+  /**
+   * Return the content of the label.
+   */
+   content: { (data: T): string };
+
+   textOptions: BlueprintEmbeddedTextOptions;
+}
+
+export interface BlueprintEmbeddedTextOptions {
+  /**
+   * The CSS style for this text
+   */
+  style: BlueprintTextStyle;
+
+  /**
+   * Text alignment
+   */
+  align: 'left' | 'center' | 'right';
+
+  /**
+   * Text padding around the text
+   */
+  padding?: {
+    top?: number;
+    left?: number;
+    right?: number;
+    bottom?: number;
+  };
 }
 
 export interface BlueprintShapeLabel<T = void> {
@@ -134,12 +170,12 @@ export interface BlueprintShapeLabelTextOptions {
   style: BlueprintTextStyle;
 
   /**
-   * Alignment of the text in the label
+   * Text alignment
    */
   align: 'left' | 'center' | 'right';
 
   /**
-   * The initial width of the label
+   * The initial width
    */
   box: {
     width: number
