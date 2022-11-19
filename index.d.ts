@@ -619,6 +619,7 @@ export interface ShapeElement<T> {
   id: string;
   blueprint: string;
   data?: T;
+  embeddedText?: string;
   x: number;
   y: number;
   width: number;
