@@ -92,7 +92,7 @@ export interface BlueprintShape<T = void> {
   /**
    * Text to embed in this shape. Embedded text cannot be resized, moved or deleted.
    */
-  embeddedText?: BlueprintEmbeddedText<T>;
+  embeddedText?: BlueprintEmbeddedText<T>[];
 
   /**
    * The labels to place in (or by) the shapes. Labels can be resized, moved or deleted.
@@ -619,11 +619,15 @@ export interface ShapeElement<T> {
   id: string;
   blueprint: string;
   data?: T;
-  embeddedText?: string;
+  embeddedText?: ShapeEmbeddedText[];
   x: number;
   y: number;
   width: number;
   height: number;
+}
+
+export interface ShapeEmbeddedText {
+  content: string;
 }
 
 export type NewShapeElement<T> = Omit<ShapeElement<T>, 'id'>;
