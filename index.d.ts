@@ -102,7 +102,12 @@ export interface BlueprintShape<T = void> {
 
 export interface BlueprintEmbeddedText<T = void> {
   /**
-   * Return the content of the label.
+   * Return an object that will be linked to this embedded text line.
+   */
+   data?: (target: DiagramEvent<T>) => T;
+
+  /**
+   * Return the content of the embedded text line.
    */
    content: { (data: T): string };
 
@@ -121,7 +126,7 @@ export interface BlueprintEmbeddedTextOptions {
   align: 'left' | 'center' | 'right';
 
   /**
-   * Text padding around the text
+   * Padding around the text
    */
   padding?: {
     top?: number;
@@ -610,8 +615,8 @@ export type NewConnectionElement<T> = Omit<ConnectionElement<T>, 'id'>;
 
 export interface LabelElement<T> {
   type: 'label',
-  content: string;
   data?: T;
+  content: string;
 }
 
 export interface ShapeElement<T> {
@@ -619,14 +624,16 @@ export interface ShapeElement<T> {
   id: string;
   blueprint: string;
   data?: T;
-  embeddedText?: ShapeEmbeddedText[];
+  embeddedText?: ShapeEmbeddedText<T>[];
   x: number;
   y: number;
   width: number;
   height: number;
 }
 
-export interface ShapeEmbeddedText {
+export interface ShapeEmbeddedText<T> {
+  type: 'label',
+  data: T;
   content: string;
 }
 
