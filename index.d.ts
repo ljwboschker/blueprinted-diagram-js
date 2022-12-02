@@ -104,14 +104,14 @@ export interface BlueprintEmbeddedText<T = void> {
   /**
    * Return an object that will be linked to this embedded text line.
    */
-   data?: (target: DiagramEvent<T>) => T;
+  data?: (target: DiagramEvent<T>) => T;
 
   /**
    * Return the content of the embedded text line.
    */
-   content: { (data: T): string };
+  content: { (data: T): string };
 
-   textOptions: BlueprintEmbeddedTextOptions;
+  textOptions: BlueprintEmbeddedTextOptions;
 }
 
 export interface BlueprintEmbeddedTextOptions {
@@ -195,7 +195,7 @@ export interface BlueprintRules<T = void> {
    * @param source The source element that is being created
    * @param target the target element, or undefined if the target is the root of the diagram
    */
-  allowed?: (source: DiagramEvent<T>, target: DiagramEvent<T> | undefined) => boolean;
+  allowed?: BlueprintAllowedRule<T>;
 
   /**
    * Determine connections from this element.
@@ -207,6 +207,8 @@ export interface BlueprintRules<T = void> {
    */
   resizable?: boolean;
 }
+
+export type BlueprintAllowedRule<T> = (source: DiagramEvent<T>, target: DiagramEvent<T> | undefined) => boolean;
 
 export interface BlueprintConnectionRule<T = void> {
   /**
@@ -277,9 +279,25 @@ export interface BlueprintTextStyle {
   fontSize?: number,
 
   /**
+   * The font-weight style property used for the text
+   */
+  fontWeight?: string,
+
+  /**
+   * The font-style style property used for the text
+   */
+  fontStyle?: string,
+
+  /**
+   * The text-decoration style property used for the text
+   */
+  textDecoration?: string,
+
+  /**
    * Text color.
    */
   fill?: string
+
 }
 
 export interface BlueprintContextAction<T> {
