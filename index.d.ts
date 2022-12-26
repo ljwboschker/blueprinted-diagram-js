@@ -525,8 +525,7 @@ export interface DiagramOverlay {
   html: string;
 
   /**
-   * The position of the overlay.
-   * Note: the position is NOT used for connection overlays. A connection overlay is always positioned near the first waypoint of the connection.
+   * The position of the overlay when linked to an element.
    */
   position?: {
     left?: number;
@@ -534,6 +533,11 @@ export interface DiagramOverlay {
     bottom?: number;
     right?: number;
   },
+
+  /**
+   * The location of the overlay when linked to a connection.
+   */
+  nearWaypoint?: 'first' | 'last',
 
   /**
    * The minimum and maximum zoom levels at which this overlay is shown.
