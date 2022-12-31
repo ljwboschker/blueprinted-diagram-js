@@ -376,6 +376,11 @@ export interface DiagramViewer<T> {
   refresh(id: string): void;
 
   /**
+   * Reset the viewport and zoomlevel to fit the entire diagram around the center.
+   */
+  resetView(): void;
+
+  /**
    * Add an overlay to an item.
    *
    * @param id the ID of the item to attach the overlay to
