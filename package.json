@@ -1,6 +1,6 @@
 {
   "name": "@softwareatlas/blueprinted-diagram-js",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "A typescript wrapper around diagram-js",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "peerDependencies": {
     "bpmn-font": "^0.12.1",
-    "diagram-js": "9.0.0"
+    "diagram-js": "10.0.0"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
