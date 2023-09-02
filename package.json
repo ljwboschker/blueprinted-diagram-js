@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "bpmn-font": "^0.12.1",
-    "diagram-js": "11.13.0"
+    "diagram-js": "^11.13.0"
   },
   "devDependencies": {
     "eslint": "^8.48.0",

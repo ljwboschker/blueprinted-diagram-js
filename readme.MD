@@ -28,6 +28,13 @@ For easy develop of this package, link it to a typescripted client application (
 
 Check https://docs.npmjs.com/cli/v8/commands/npm-link for more information.
 
+## Versioning
+
+This package heavily relies on diagram-js, so it follows a similar version numbering. We'll keep the major version in sync with diagram-js.
+
+The minor and patch version can vary, based on features in the blueprinted-diagram-js package itself.
+
+
 ## Publishing
 
 To publish this package, use npm to give it a version and push the tag to git:
