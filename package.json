@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint lib/**",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc index.d.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "diagram-js",
@@ -35,7 +34,6 @@
   "devDependencies": {
     "eslint": "^8.48.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "typedoc": "^0.25.2"
+    "eslint-plugin-import": "^2.28.1"
   }
 }
