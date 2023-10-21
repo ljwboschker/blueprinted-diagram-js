@@ -369,7 +369,7 @@ export interface DiagramViewer<T> {
 
   /**
    * Refresh a specific item in the diagram.
-   * This will rerender the SVG and update any labels.
+   * This will rerender the SVG and update any text.
    *
    * @param id the ID of the item to refresh.
    */
@@ -426,11 +426,11 @@ export interface DiagramEditor<T> {
    * Create a new item in the diagram based on the specified blueprint element.
    *
    * @param event the original click event that triggered this create. Needed to detemine the start-point for the item.
-   * @param blueprintItem
+   * @param blueprintElement
    * @param data if specified, then this is used as the new element's data part. Of not specified, the blueprint data() method is used.
    * @param source if specified, then the new element will be automatically be connected to this element.
    */
-  create(event: Event, blueprintItem: BlueprintElement<T>, data?: T, sourceId?: string): void;
+  create(event: Event, blueprintElement: BlueprintElement<T>, data?: T, sourceId?: string): void;
 
   /**
    * Create a connection between two existing elements.
@@ -443,9 +443,9 @@ export interface DiagramEditor<T> {
   /**
    * Add an existing element to the diagram.
    *
-   * @param item
+   * @param element
    */
-  add(item: NewShapeElement<T> | NewConnectionElement<T>): void;
+  add(element: NewShapeElement<T> | NewConnectionElement<T>): void;
 
   /**
    * Load items in the diagram. Only add those emitted by onItemChange.
