@@ -530,7 +530,12 @@ export interface DiagramOverlay {
   html: string;
 
   /**
-   * The position of the overlay when linked to an element.
+   * When linked to an element: indicates how to align the overlay with its parent. Defaults to 'left'.
+   */
+  align?: 'left' | 'center' | 'right',
+
+  /**
+   * When linked to an element: indicates how to position the overlay relative to its parent.
    */
   position?: {
     left?: number;
