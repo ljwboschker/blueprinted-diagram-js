@@ -81,13 +81,14 @@ export interface BlueprintShape<T = void> {
   /**
    * Return the SVG image definition (as a string).
    */
-  svg: { (elementId: string, data?: T): string };
+  svg: { (elementId?: string, data?: T): string };
+
 
   /**
    * The SVG to use in the palette and context-pad.
    * If not defined, the svg() method is used.
    */
-  iconSvg?: { (elementId: string, data?: T): string };
+  iconSvg?: { (data?: T): string };
 
   /**
    * Text to embed in this shape. Embedded text cannot be resized, moved or deleted.
