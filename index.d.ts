@@ -188,6 +188,7 @@ export interface BlueprintShapeLabelTextOptions {
   };
 }
 
+
 export interface BlueprintRules<T = void> {
   /**
    * Determine if the element can be created.
@@ -195,21 +196,22 @@ export interface BlueprintRules<T = void> {
    *
    * @param source The source element that is being created
    * @param target the target element, or undefined if the target is the root of the diagram
-   */
+  */
   allowed?: BlueprintAllowedRule<T>;
 
   /**
-   * Determine connections from this element.
-   */
+    * Determine connections from this element.
+  */
   connections?: BlueprintConnectionRule<T>;
 
   /**
    * Set to true to allow this element to be resized.
-   */
+  */
   resizable?: boolean;
 }
 
 export type BlueprintAllowedRule<T> = (source: DiagramEvent<T>, target: DiagramEvent<T> | undefined) => boolean;
+
 
 export interface BlueprintConnectionRule<T = void> {
   /**
@@ -223,15 +225,11 @@ export interface BlueprintConnectionRule<T = void> {
   data?: (source: DiagramEvent<T>, target: DiagramEvent<T>) => T;
 
   /**
-   * Shows an arrow to indicate the direction of the connection.
-   * The arrowhead will use the connection style's stroke.
+   * Return the style for this connection
+   * @param elementId
+   * @returns style definition of the connection
    */
-  arrow?: boolean;
-
-  /**
-   * The style definition of the connection.
-   */
-  style: Partial<CSSStyleDeclaration>;
+  style: (elementId: string) => BlueprintConnectionStyle;
 
   /**
    * The label to place with the connection.
@@ -242,6 +240,19 @@ export interface BlueprintConnectionRule<T = void> {
    * Extra actions added to this connection's context pad.
    */
   contextActions?: BlueprintContextAction<T>[];
+}
+
+export interface BlueprintConnectionStyle {
+  /**
+   * Shows an arrow to indicate the direction of the connection.
+   * The arrowhead will use the connection style's stroke.
+   */
+  arrow?: boolean;
+
+  /**
+   * The style definition of the connection.
+   */
+  style: Partial<CSSStyleDeclaration>;
 }
 
 export interface BlueprintConnectionLabel<T> {
@@ -298,7 +309,6 @@ export interface BlueprintTextStyle {
    * Text color.
    */
   fill?: string
-
 }
 
 export interface BlueprintContextAction<T> {
