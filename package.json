@@ -21,19 +21,19 @@
   },
   "dependencies": {
     "diagram-js-direct-editing": "^2.1.2",
-    "diagram-js-grid": "^0.2.0",
+    "diagram-js-grid": "^1.0.0",
     "inherits": "^2.0.4",
-    "min-dom": "^4.0.1",
-    "tiny-svg": "^3.0.0",
-    "uuid": "^9.0.0"
+    "min-dom": "^4.1.0",
+    "tiny-svg": "^3.0.1",
+    "uuid": "^9.0.1"
   },
   "peerDependencies": {
     "bpmn-font": "^0.12.1",
-    "diagram-js": "^13.4.0"
+    "diagram-js": "^14.1.0"
   },
   "devDependencies": {
-    "eslint": "^8.48.0",
+    "eslint": "8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.28.1"
+    "eslint-plugin-import": "^2.29.1"
   }
 }
