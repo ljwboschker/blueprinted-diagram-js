@@ -24,7 +24,7 @@
     "diagram-js-grid": "^1.0.0",
     "inherits": "^2.0.4",
     "min-dom": "^4.1.0",
-    "tiny-svg": "^3.0.1",
+    "tiny-svg": "^4.0.0",
     "uuid": "^9.0.1"
   },
   "peerDependencies": {
