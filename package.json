@@ -20,7 +20,7 @@
     "url": "https://github.com/ljwboschker/blueprinted-diagram-js"
   },
   "dependencies": {
-    "diagram-js-direct-editing": "^2.1.2",
+    "diagram-js-direct-editing": "^3.0.1",
     "diagram-js-grid": "^1.0.0",
     "inherits": "^2.0.4",
     "min-dom": "^4.1.0",
