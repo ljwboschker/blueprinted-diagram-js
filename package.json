@@ -1,6 +1,6 @@
 {
   "name": "@softwareatlas/blueprinted-diagram-js",
-  "version": "15.0.2",
+  "version": "15.0.3",
   "description": "A typescript wrapper around diagram-js",
   "main": "index.js",
   "scripts": {
