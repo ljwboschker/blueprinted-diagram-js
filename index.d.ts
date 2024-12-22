@@ -105,7 +105,7 @@ export interface BlueprintEmbeddedText<T = void> {
   /**
    * Return an object that will be linked to this embedded text line.
    */
-  data?: (target: DiagramEvent<T>) => T;
+  data?: (target: ShapeElement<T>) => T;
 
   /**
    * Return the content of the embedded text line.
@@ -141,7 +141,7 @@ export interface BlueprintShapeLabel<T = void> {
   /**
    * Return an object that will be linked to this label.
    */
-  data?: (target: DiagramEvent<T>) => T;
+  data?: (target: ShapeElement<T>) => T;
 
   /**
    * Return the content of the label.
@@ -258,7 +258,7 @@ export interface BlueprintConnectionLabel<T> {
   /**
    * Return an object that will be linked to this label.
    */
-  data?: (target: DiagramEvent<T>) => T;
+  data?: (target: ConnectionElement<T>) => T;
 
   /**
    * Return the content of the label.
