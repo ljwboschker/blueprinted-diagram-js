@@ -1,3 +1,5 @@
+import { Shape } from "diagram-js/lib/model/Types";
+
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -221,7 +223,7 @@ export interface BlueprintConnectionRule<T = void> {
   /**
    * Return an object that will be linked to this connection.
    */
-  data?: (source: DiagramEvent<T>, target: DiagramEvent<T>) => T;
+  data?: (source: ShapeElement<T>, target: ShapeElement<T>) => T;
 
   /**
    * Return the style for this connection
