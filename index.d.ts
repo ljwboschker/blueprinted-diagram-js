@@ -597,7 +597,7 @@ export interface DiagramOverlayFilter {
 
 export interface ContextActionEvent<T> {
   name: string;
-  event: DiagramEvent<T>
+  target: ShapeElement<T> | ConnectionElement<T>
 }
 
 export type DiagramEvent<T> = ShapeEvent<T> | LabelEvent<T> | ConnectionEvent<T>;
@@ -652,6 +652,7 @@ export interface ConnectionItem<T> {
 
 export interface ConnectionElement<T> {
   type: 'connection',
+  id: string;
   data?: T
 }
 
