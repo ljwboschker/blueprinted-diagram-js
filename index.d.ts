@@ -344,7 +344,7 @@ export interface BlueprintContextAction<T> {
 export interface BlueprintPopup<T> {
   name: string;
 
-  items: (source: DiagramEvent<T>) => BlueprintPopupMenuItem[];
+  items: (source: ShapeElement<T>) => BlueprintPopupMenuItem[];
 }
 
 export interface BlueprintPopupMenuItem {
