@@ -338,7 +338,7 @@ export interface BlueprintContextAction<T> {
   /**
    * If specified, call this method to determine if the context action is allowed.
    */
-  allowed?: (source: DiagramEvent<T>) => boolean;
+  allowed?: (source: ShapeElement<T>) => boolean;
 }
 
 export interface BlueprintPopup<T> {
