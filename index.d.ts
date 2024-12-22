@@ -210,8 +210,7 @@ export interface BlueprintRules<T = void> {
   resizable?: boolean;
 }
 
-export type BlueprintAllowedRule<T> = (source: DiagramEvent<T>, target: DiagramEvent<T> | undefined) => boolean;
-
+export type BlueprintAllowedRule<T> = (source: ShapeElement<T>, target: ShapeElement<T> | undefined) => boolean;
 
 export interface BlueprintConnectionRule<T = void> {
   /**
