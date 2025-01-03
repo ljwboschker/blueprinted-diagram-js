@@ -105,14 +105,17 @@ export interface BlueprintShape<T = void> {
 
 export interface BlueprintEmbeddedText<T = void> {
   /**
-   * Return an object that will be linked to this embedded text line.
+   * The key to identify this embedded text line.
    */
-  data?: (target: ShapeElement<T>) => T;
+  key: string;
 
   /**
    * Return the content of the embedded text line.
+   *
+   * @param key the key of the embedded text line that is rendered
+   * @param data the data object that is linked to the shape
    */
-  content: { (data: T): string };
+  content: { (key: string, data: T): string };
 
   textOptions: BlueprintEmbeddedTextOptions;
 }
@@ -537,9 +540,9 @@ export interface DiagramEditor<T> {
 
 export interface DiagramOverlay {
   /**
-   * String with HTML of the overlay.
+   * HTMLElement or string with HTML of the overlay.
    */
-  html: string;
+  html: HTMLElement | string;
 
   /**
    * When linked to an element: indicates how to align the overlay with its parent. Defaults to 'left'.
@@ -669,16 +672,16 @@ export interface ShapeElement<T> {
   id: string;
   blueprint: string;
   data?: T;
-  embeddedText?: ShapeEmbeddedText<T>[];
+  embeddedText?: ShapeEmbeddedText[];
   x: number;
   y: number;
   width: number;
   height: number;
 }
 
-export interface ShapeEmbeddedText<T> {
+export interface ShapeEmbeddedText {
   type: 'label',
-  data: T;
+  key: string;
   content: string;
 }
 
