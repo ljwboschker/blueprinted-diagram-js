@@ -144,14 +144,17 @@ export interface BlueprintEmbeddedTextOptions {
 
 export interface BlueprintShapeLabel<T = void> {
   /**
-   * Return an object that will be linked to this label.
+   * The key to identify this label.
    */
-  data?: (target: ShapeElement<T>) => T;
+  key: string;
 
   /**
    * Return the content of the label.
+   *
+   * @param key the key of the label that is rendered
+   * @param data the data object that is linked to the shape
    */
-  content: { (data: T): string };
+  content: { (key: string, data: T): string };
 
   position: BlueprintLabelPosition;
 
@@ -261,14 +264,17 @@ export interface BlueprintConnectionStyle {
 
 export interface BlueprintConnectionLabel<T> {
   /**
-   * Return an object that will be linked to this label.
+   * The key to identify this label.
    */
-  data?: (target: ConnectionElement<T>) => T;
+  key: string;
 
   /**
    * Return the content of the label.
+   *
+   * @param key the key of the label that is rendered
+   * @param data the data object that is linked to the connection
    */
-  content: { (data: T): string };
+  content: { (key: string, data: T): string };
 
   textOptions: BlueprintConnectionLabelTextOptions;
 }
@@ -614,7 +620,7 @@ export interface ShapeEvent<T> {
 
 export interface LabelEvent<T> {
   type: 'label';
-  item: LabelItem<T>;
+  item: LabelItem;
 
   getTarget: () => ShapeElement<T>;
 }
@@ -627,7 +633,7 @@ export interface ConnectionEvent<T> {
   getTarget: () => ShapeElement<T>;
 }
 
-export type DiagramItem<T> = ShapeItem<T> | LabelItem<T> | ConnectionItem<T>;
+export type DiagramItem<T> = ShapeItem<T> | ConnectionItem<T> | LabelItem;
 
 export interface ShapeItem<T> {
   id: string;
@@ -636,11 +642,11 @@ export interface ShapeItem<T> {
   element: ShapeElement<T>;
 }
 
-export interface LabelItem<T> {
+export interface LabelItem {
   id: string;
   type: 'label';
   parentId: string | undefined;
-  element: LabelElement<T>;
+  element: LabelElement;
   labelTargetId: string | undefined;
 }
 
@@ -661,9 +667,9 @@ export interface ConnectionElement<T> {
 
 export type NewConnectionElement<T> = Omit<ConnectionElement<T>, 'id'>;
 
-export interface LabelElement<T> {
+export interface LabelElement {
   type: 'label',
-  data?: T;
+  key: string;
   content: string;
 }
 
