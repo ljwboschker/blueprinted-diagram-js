@@ -472,9 +472,9 @@ export interface DiagramEditor<T> {
    * Update an existing element in the diagram.
    *
    * @param id the ID of the element to update.
-   * @param update if the element exists, then this function is called with the current element and should return the updated element.
+   * @param update if the element exists, then this function is called with the current element. You can update the element in place.
    */
-  update(id: string, update: (element: ShapeElement<T>) => ShapeElement<T>): void;
+  update(id: string, update: (element: ShapeElement<T> | ConnectionElement<T>) => void): void;
 
   /**
    * Load items in the diagram. Only add those emitted by onItemChange.
