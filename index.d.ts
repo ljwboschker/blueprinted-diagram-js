@@ -618,12 +618,17 @@ export interface ContextActionEvent<T> {
 }
 
 export type DiagramEvent<T> = ShapeEvent<T> | LabelEvent<T> | ConnectionEvent<T>;
+export type LabelContent = {
+  key: string;
+  content: string;
+}
 
 export interface ShapeEvent<T> {
   type: 'shape';
   item: ShapeItem<T>;
 
   getParent: () => ShapeElement<T>;
+  getLabels: () => LabelContent[];
 }
 
 export interface LabelEvent<T> {
@@ -636,6 +641,8 @@ export interface LabelEvent<T> {
 export interface ConnectionEvent<T> {
   type: 'connection',
   item: ConnectionItem<T>;
+
+  getLabels: () => LabelContent[];
 
   getSource: () => ShapeElement<T>;
   getTarget: () => ShapeElement<T>;
