@@ -627,7 +627,7 @@ export interface ShapeEvent<T> {
   type: 'shape';
   item: ShapeItem<T>;
 
-  getParent: () => ShapeElement<T> | undefined;
+  getParent: () => DiagramEvent<T> | undefined;
   getLabels: () => LabelContent[];
 }
 
