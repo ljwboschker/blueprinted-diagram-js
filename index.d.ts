@@ -1,5 +1,3 @@
-import { Shape } from "diagram-js/lib/model/Types";
-
 declare module 'blueprinted-diagram-js';
 
 /**
@@ -490,6 +488,12 @@ export interface DiagramEditor<T> {
    * @param id the ID of the item to refresh.
    */
   refresh(id: string): void;
+
+  /**
+   * Select an item on the diagram.
+   * @param id the ID of the item to select. Use undefined to deselect all elements.
+   */
+  select(id: string | undefined): void;
 
   /**
    * Add an overlay to an item.
