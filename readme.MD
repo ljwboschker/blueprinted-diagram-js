@@ -46,4 +46,4 @@ git push --tags
 
 Be sure to use [semantic versioning](https://semver.org)!
 
-Next, [create a release in Gitlab](https://github.com/ljwboschker/blueprinted-diagram-js/releases) using this tag. The version will automatically be published to NPM by a Github action
+GitHub Actions will now build and publish this version to [npmjs.org](https://www.npmjs.com/package/@softwareatlas/blueprinted-diagram-js).
