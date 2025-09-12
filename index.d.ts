@@ -563,24 +563,28 @@ export interface DiagramOverlay {
   html: HTMLElement | string;
 
   /**
-   * When linked to an element: indicates how to align the overlay with its parent. Defaults to 'left'.
+   * When linked to an element: indicates how to align the overlay with its parent.
+   * Setting this will override any left/right positioning set in position.
    */
   align?: 'left' | 'center' | 'right',
 
-  /**
-   * When linked to an element: indicates how to position the overlay relative to its parent.
-   */
-  position?: {
-    left?: number;
-    top?: number;
-    bottom?: number;
-    right?: number;
-  },
 
   /**
    * The location of the overlay when linked to a connection.
-   */
-  nearWaypoint?: 'first' | 'last',
+   * Setting this will override the position and the align properties.
+  */
+ nearWaypoint?: 'first' | 'last',
+
+ /**
+  * When linked to an element: indicates how to position the overlay relative to its parent.
+  * Any align or nearWaypoint settings will override these properties.
+  */
+ position?: {
+   left?: number;
+   top?: number;
+   bottom?: number;
+   right?: number;
+ },
 
   /**
    * The minimum and maximum zoom levels at which this overlay is shown.
