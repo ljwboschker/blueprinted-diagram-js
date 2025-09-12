@@ -562,29 +562,11 @@ export interface DiagramOverlay {
    */
   html: HTMLElement | string;
 
-  /**
-   * When linked to an element: indicates how to align the overlay with its parent.
-   * Setting this will override any left/right positioning set in position.
-   */
-  align?: 'left' | 'center' | 'right',
-
-
-  /**
-   * The location of the overlay when linked to a connection.
-   * Setting this will override the position and the align properties.
-  */
- nearWaypoint?: 'first' | 'last',
-
  /**
   * When linked to an element: indicates how to position the overlay relative to its parent.
   * Any align or nearWaypoint settings will override these properties.
   */
- position?: {
-   left?: number;
-   top?: number;
-   bottom?: number;
-   right?: number;
- },
+ position?: OverlayPosition,
 
   /**
    * The minimum and maximum zoom levels at which this overlay is shown.
@@ -595,12 +577,47 @@ export interface DiagramOverlay {
   },
 
   /**
-   * The minumum and maximum scale to which this overlay scales.
+   * The minimum and maximum scale to which this overlay scales.
    */
   scale?: {
     min?: number;
     max?: number;
   }
+}
+
+export type OverlayPosition = OverlayPositionAbsolute | OverlayPositionAligned | OverlayPositionConnection | OverlayPositionAuto;
+
+export interface OverlayPositionAbsolute {
+  type: 'absolute';
+  left?: number;
+  top?: number;
+  bottom?: number;
+  right?: number;
+}
+
+export interface OverlayPositionAligned {
+  /**
+   * Align the overlay relative to its parent element.
+   */
+  type: 'aligned';
+  align: 'left' | 'center' | 'right';
+  top?: number;
+  bottom?: number;
+}
+
+export interface OverlayPositionConnection {
+  /**
+   * The waypoint of the connection to position the overlay near.
+   */
+  type: 'connection';
+  nearWaypoint: 'first' | 'last';
+}
+
+export interface OverlayPositionAuto {
+  /**
+   * Automatically position the overlay relative to its parent element, so that is always in the viewport.
+   */
+  type: 'autoPosition';
 }
 
 export interface DiagramOverlayFilter {
