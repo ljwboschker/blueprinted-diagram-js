@@ -585,7 +585,7 @@ export interface DiagramOverlay {
   }
 }
 
-export type OverlayPosition = OverlayPositionAbsolute | OverlayPositionAligned | OverlayPositionConnection | OverlayPositionAuto;
+export type OverlayPosition = OverlayPositionAbsolute | OverlayPositionAligned | OverlayPositionWaypoint | OverlayPositionAuto;
 
 export interface OverlayPositionAbsolute {
   type: 'absolute';
@@ -596,28 +596,25 @@ export interface OverlayPositionAbsolute {
 }
 
 export interface OverlayPositionAligned {
-  /**
-   * Align the overlay relative to its parent element.
-   */
   type: 'aligned';
   align: 'left' | 'center' | 'right';
   top?: number;
   bottom?: number;
 }
 
-export interface OverlayPositionConnection {
+export interface OverlayPositionWaypoint {
+  type: 'waypoint';
   /**
    * The waypoint of the connection to position the overlay near.
    */
-  type: 'connection';
-  nearWaypoint: 'first' | 'last';
+  near: 'first' | 'last';
 }
 
 export interface OverlayPositionAuto {
   /**
    * Automatically position the overlay relative to its parent element, so that is always in the viewport.
    */
-  type: 'autoPosition';
+  type: 'auto';
 }
 
 export interface DiagramOverlayFilter {
